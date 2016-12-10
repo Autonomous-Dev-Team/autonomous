@@ -5,7 +5,7 @@ This  is a collaberative effort to create toolkits, libraries to connect everyth
 
 Goal:
 1) Enable anybody interested to be able to create a low cost robot, self de=riving car or more
-2) 
+2) Learn the basics of Java programming
 
 # Setup
 
