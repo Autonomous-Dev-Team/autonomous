@@ -4,8 +4,12 @@
 
 echo "Cleanup of previous build ..."
 find bin -name *.class -exec rm -f '{}' \;
-rm -f target/*
+rm -rf bin
+rm -rf target
 rm -f ProjectFileList
+
+mkdir target
+mkdir bin
 
 echo "Build list of files in project ..." 
 find src/main/java -name *.java > ProjectFileList
