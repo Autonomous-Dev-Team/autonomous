@@ -2,5 +2,5 @@
 #
 # Run the java program
 #
-sudo java -cp target/herbie-1.0.jar:/opt/pi4j/lib/'*' org.robotics.car.controler.CarEngine
+sudo java -cp target/herbie-1.0.jar:/opt/pi4j/lib/'*' org.robotics.car.controller.CarEngine
 
