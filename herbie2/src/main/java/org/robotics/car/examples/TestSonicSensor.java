@@ -1,4 +1,3 @@
-package org.robotics.car.examples;
 
 /*
  *
@@ -17,8 +16,9 @@ package org.robotics.car.examples;
  *         limitations under the License.
  *
  *         Author: Maurice Ruttimann
- * /
+ *
  */
+package org.robotics.car.examples;
 
 // Classes developed to use the different sensors
 import org.robotics.car.exception.TimeoutException;

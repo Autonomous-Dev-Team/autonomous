@@ -1,13 +1,5 @@
-package org.robotics.car.sensors;
-
-/**
-* Implementing Sonic Sensor Model HC-SR04
-* Datasheet: http://www.micropik.com/PDF/HCSR04.pdf
-*
-* @author Roger Ruttimann
-* 
-***********************************************
-* Copyright 2016 Roger Ruttimann
+/***********************************************
+* Copyright 2016 Autonomous Open Source Project
 * 
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +14,8 @@ package org.robotics.car.sensors;
 * See the License for the specific language governing permissions and
 * limitations under the License. 
 *
-**/
-
+*/
+package org.robotics.car.sensors;
 
 import org.robotics.car.sensors.Sensor;
 import org.robotics.car.exception.TimeoutException;
@@ -37,6 +29,13 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
+
+/**
+ * Implementing Sonic Sensor Model HC-SR04
+ * Datasheet: http://www.micropik.com/PDF/HCSR04.pdf
+ *
+ * @author Roger Ruttimann
+ */
 
 public class UltraSonicHCSR04 extends Sensor {
 

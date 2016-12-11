@@ -1,12 +1,5 @@
-package org.robotics.car.sensors;
-/*
- * Implementing Temeprature Sensor module  Model DHT11
- * Datasheet: http://www.uugear.com/portfolio/dht11-humidity-temperature-sensor-module/
- *
- * @author Roger Ruttimann
- *
- ***********************************************
- * Copyright 2016 Roger Ruttimann
+/***********************************************
+ * Copyright 2016 Autonomous Open Source Project
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +15,18 @@ package org.robotics.car.sensors;
  * limitations under the License.
  *
  */
+package org.robotics.car.sensors;
 
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.GpioUtil;
 import org.robotics.car.sensors.data.Temperature;
 
+/*
+ * Implementing Temeprature Sensor module  Model DHT11
+ * Datasheet: http://www.uugear.com/portfolio/dht11-humidity-temperature-sensor-module/
+ *
+ * @author Roger Ruttimann
+ */
 
 public class TemperatureDHT11 {
     private static final int MAXTIMINGS = 85;
