@@ -57,8 +57,8 @@ public class UltraSonicHCSR04 extends Sensor {
 	private GpioPinDigitalOutput triggerOut = null;
 	
 	/* Default settings */
-	private Pin echoPin 	= RaspiPin.GPIO_02;
-	private Pin triggerPin	= RaspiPin.GPIO_03;
+	private Pin echoPin 	= null; //RaspiPin.GPIO_02;
+	private Pin triggerPin	= null; //RaspiPin.GPIO_03;
 	
 	// create gpio controller
 	private GpioController gpio = GpioFactory.getInstance();
@@ -68,14 +68,22 @@ public class UltraSonicHCSR04 extends Sensor {
 	// Constructor
 	public UltraSonicHCSR04(String name, int gpioEcho, int gpioTrigger) {
 		super(name);
-		
+
+		// Create the GPIO pins from the input params
+		echoPin = RaspiPin.getPinByAddress(gpioEcho);
+		triggerPin = RaspiPin.getPinByAddress(gpioTrigger);
+
+		System.out.println("Echo Pin [" + echoPin.getAddress() + "] has name "+ echoPin.getName() );
+		System.out.println("Trigger Pin [" + triggerPin.getAddress() + "] has name "+ triggerPin.getName() );
+
 		// Sonic Sensor specific members
 		this.gpioEcho	 = gpioEcho;
 		this.gpioTrigger = gpioTrigger;
 		this.distance = -1;
-		
-		echoIn		= gpio.provisionDigitalInputPin(echoPin, "EchoSignal", PinPullResistance.PULL_UP);	
-		triggerOut	= gpio.provisionDigitalOutputPin(triggerPin, "TriggerSignal", PinState.LOW);
+
+		// Provision pins
+		this.echoIn		= gpio.provisionDigitalInputPin(echoPin, "EchoSignal", PinPullResistance.PULL_UP);
+		this.triggerOut	= gpio.provisionDigitalOutputPin(triggerPin, "TriggerSignal", PinState.LOW);
 		
 		triggerOut.low();	
 	}
@@ -123,8 +131,9 @@ public class UltraSonicHCSR04 extends Sensor {
 				measurements = measurements + measureDistance();
 				Thread.sleep(200);
 			} catch (TimeoutException te){
-				i = 0;
-				measurements = 0;
+				// Repeat measurement
+				i--;
+
 		//		System.out.println("Sensor was not ready, reinitailizing loop");
 			} catch (InterruptedException ie) {
 				System.out.println("Loop interrupted..");
@@ -152,7 +161,7 @@ public class UltraSonicHCSR04 extends Sensor {
 	/**
      * Wait for a high on the echo pin
      * 
-     * @throws DistanceMonitor.TimeoutException if no high appears in time
+     * @throws .TimeoutException if no high appears in time
      */
     private void waitForSignal() throws TimeoutException {
         int countdown = TIMEOUT;
@@ -168,7 +177,7 @@ public class UltraSonicHCSR04 extends Sensor {
     
     /**
      * @return the duration of the signal in micro seconds
-     * @throws DistanceMonitor.TimeoutException if no low appears in time
+     * @throws .TimeoutException if no low appears in time
      */
     private long measureSignal() throws TimeoutException {
         int countdown = TIMEOUT;
