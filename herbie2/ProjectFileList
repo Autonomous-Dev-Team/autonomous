@@ -1,5 +1,8 @@
+src/main/java/org/robotics/car/controller/MotorController.java
+src/main/java/org/robotics/car/controller/CarEngine.java
 src/main/java/org/robotics/car/motor/Motor.java
 src/main/java/org/robotics/car/examples/TestTempSensorDHT11.java
+src/main/java/org/robotics/car/examples/TestSonicSensor.java
 src/main/java/org/robotics/car/sensors/data/Measurement.java
 src/main/java/org/robotics/car/sensors/data/DataMeasured.java
 src/main/java/org/robotics/car/sensors/data/Temperature.java
@@ -9,8 +12,6 @@ src/main/java/org/robotics/car/sensors/UltraSonicHCSR04.java
 src/main/java/org/robotics/car/sensors/MotionSensor.java
 src/main/java/org/robotics/car/sensors/Sensor.java
 src/main/java/org/robotics/car/exception/TimeoutException.java
-src/main/java/org/robotics/car/controler/MotorController.java
-src/main/java/org/robotics/car/controler/CarEngine.java
 src/main/java/com/pi4j/component/adafruithat/AdafruitHat.java
 src/main/java/com/pi4j/component/adafruithat/AdafruitMotorHat.java
 src/main/java/com/pi4j/component/adafruithat/AdafruitServoHat.java

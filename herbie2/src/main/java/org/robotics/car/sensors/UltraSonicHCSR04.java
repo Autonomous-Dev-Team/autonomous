@@ -58,8 +58,8 @@ public class UltraSonicHCSR04 extends Sensor {
 	private GpioPinDigitalOutput triggerOut = null;
 	
 	/* Default settings */
-	private Pin echoPin 	= RaspiPin.GPIO_04;
-	private Pin triggerPin	= RaspiPin.GPIO_05;
+	private Pin echoPin 	= RaspiPin.GPIO_02;
+	private Pin triggerPin	= RaspiPin.GPIO_03;
 	
 	// create gpio controller
 	private GpioController gpio = GpioFactory.getInstance();
@@ -107,7 +107,7 @@ public class UltraSonicHCSR04 extends Sensor {
         this.waitForSignal();
         long duration = this.measureSignal();
         
-        System.out.printf("Time %d ms to run measurement. ", System.currentTimeMillis() - startTime);
+        //System.out.printf("Time %d ms to run measurement. ", System.currentTimeMillis() - startTime);
 
 		// Round up result before returning
 		float result = duration * SOUND_SPEED / ( 2 * 10000 );
@@ -116,16 +116,19 @@ public class UltraSonicHCSR04 extends Sensor {
 		return (float) Math.ceil(result);
 	}
 
-	public float measureDistanceAverage(int samplesize) {
+	public float measureDistanceAverage(int samplesize) throws TimeoutException {
 		//Local Variables
 		float measurements = 0;
 		for (int i = 0; i < samplesize; i++) {
 			try {
 				measurements = measurements + measureDistance();
+				Thread.sleep(200);
 			} catch (TimeoutException te){
 				i = 0;
 				measurements = 0;
-				System.out.println("Sensor was not ready, reinitailizing loop");
+		//		System.out.println("Sensor was not ready, reinitailizing loop");
+			} catch (InterruptedException ie) {
+				System.out.println("Loop interrupted..");
 			}
 		}
 		//Calculate the Average and return the result]
