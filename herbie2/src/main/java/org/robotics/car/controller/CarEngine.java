@@ -68,9 +68,9 @@ public class CarEngine {
 
         // Initialize Sensors, motor controller
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and GPIO Pin # 5 for TRIGGER
-        UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Sonic sensor", 4, 5);
-        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Sonic sensor", 6, 7);
-        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Sonic sensor", 8, 9);
+        UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Sonic sensor", 5, 6);
+        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Sonic sensor", 0, 2);
+        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Sonic sensor", 3, 4);
 
         // Create Motor controller
        MotorController motorController = new MotorController();
