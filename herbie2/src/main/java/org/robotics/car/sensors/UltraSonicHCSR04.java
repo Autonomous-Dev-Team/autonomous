@@ -126,16 +126,18 @@ public class UltraSonicHCSR04 extends Sensor {
 	public float measureDistanceAverage(int samplesize) throws TimeoutException {
 		//Local Variables
 		float measurements = 0;
+		float measurement = 0;
 		for (int i = 0; i < samplesize; i++) {
 			try {
-				measurements = measurements + measureDistance();
-				Thread.sleep(200);
-			} catch (TimeoutException te){
-				// Repeat measurement
-				i--;
+				measurement = measureDistance();
 
-		//		System.out.println("Sensor was not ready, reinitailizing loop");
-			} catch (InterruptedException ie) {
+				measurements = measurements + measurement;
+				Thread.sleep(300);
+			} catch (TimeoutException te) {
+				//System.out.println("Timeout ignore measurement Loop " + i);
+				i--;
+			}
+			catch (InterruptedException ie) {
 				System.out.println("Loop interrupted..");
 			}
 		}

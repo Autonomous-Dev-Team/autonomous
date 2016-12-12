@@ -102,7 +102,7 @@ public class AdafruitDcMotorHatExample {
 			motorBackRight.speed(speed);
 
 			//motorHat.sleep() will stop all motors if interrupted.
-			motorHat.sleep(1000);
+			motorHat.sleep(5000);
 		}
 
 		//Stop motors in brake mode.
@@ -141,7 +141,7 @@ public class AdafruitDcMotorHatExample {
 		motorFrontRight.forward();
 		motorBackLeft.forward();
 		motorBackRight.forward();
-		motorHat.sleep(2000);
+		motorHat.sleep(20000);
 
 		//move reverse at current power level
 		System.out.println("Move reverse");
@@ -149,7 +149,7 @@ public class AdafruitDcMotorHatExample {
 		motorFrontRight.reverse();
 		motorBackLeft.reverse();
 		motorBackRight.reverse();
-		motorHat.sleep(2000);
+		motorHat.sleep(20000);
 
 		//coast to a stop
 		motorFrontLeft.stop();

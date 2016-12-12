@@ -42,10 +42,10 @@ import org.robotics.car.sensors.UltraSonicHCSR04;
 public class CarEngine {
 	
 	// Constants
-	static final int DEFAULT_LOOP_TIME = 1000; // 1 sec
+	static final int DEFAULT_LOOP_TIME = 300; // 1 sec
 
     // Minimal distance between sensor and object to do an action
-    static float MINIMAL_DISTANCE = 15;
+    static float MINIMAL_DISTANCE = 20;
     static int SLEEPING_TIME_BETWEEN_LOOP = 500; // in ms
     static int SAMPLESIZE = 3; //samplesize for average calculation
     static int DEGREES_TO_TURN = 90;
@@ -53,6 +53,8 @@ public class CarEngine {
 
     // create gpio controller instance
     static final GpioController gpio = GpioFactory.getInstance();
+
+    static MotorController motorController = null;
 
     // LED instances
     static final GpioPinDigitalOutput ledGreen	= gpio.provisionDigitalOutputPin(RaspiPin.GPIO_27, "CarEngine", PinState.LOW);
@@ -68,12 +70,12 @@ public class CarEngine {
 
         // Initialize Sensors, motor controller
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and GPIO Pin # 5 for TRIGGER
-        UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Sonic sensor", 5, 6);
-        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Sonic sensor", 0, 2);
-        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Sonic sensor", 3, 4);
+        UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Front sensor", 5, 6);
+        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 0, 2);
+        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 4, 3);
 
         // Create Motor controller
-       MotorController motorController = new MotorController();
+        motorController = new MotorController();
 
         // local variables
         float frontmeasuredDistance = 0;
@@ -90,6 +92,7 @@ public class CarEngine {
         ledYellow.low();
 
         /**
+         * Pseudo code to run the car:
          *
          * while forever
          * sleep 500ms
@@ -107,68 +110,68 @@ public class CarEngine {
          *
          */
 
+        System.out.println("Herbie Online and Ready to Go");
         while (true) {
 
             try {
-                System.out.println("Herbie Online and Ready to Go");
 
                 Thread.sleep(SLEEPING_TIME_BETWEEN_LOOP);
                 //read all the sensors
+                System.out.println("Measure distance ..");
+
                 frontmeasuredDistance = frontSensor.measureDistanceAverage(SAMPLESIZE);
+                System.out.println("Front measurement: " + frontmeasuredDistance);
                 leftmeasuredDistance = leftSensor.measureDistanceAverage(SAMPLESIZE);
+                System.out.println("Left measurement: " + leftmeasuredDistance);
                 rightmeasuredDistance = rightSensor.measureDistanceAverage(SAMPLESIZE);
+                System.out.println("Right measurement: " + rightmeasuredDistance);
+
+                //System.out.println("Measured: Front " + frontmeasuredDistance + " Left Side " + leftmeasuredDistance + " Right Side " + rightmeasuredDistance);
 
                 if (frontmeasuredDistance > MINIMAL_DISTANCE) {
                     // Motor forward
                     System.out.println("Front clear move forward");
-                    motorController.forward("HIGH");
-                } else if (leftmeasuredDistance > MINIMAL_DISTANCE) {
-                    //motor left
-                    System.out.println("Right clear turn Right");
+                    motorController.forward("MEDIUM");
+                } else if (frontmeasuredDistance < MINIMAL_DISTANCE &&
+                        leftmeasuredDistance > MINIMAL_DISTANCE &&
+                        rightmeasuredDistance > MINIMAL_DISTANCE) {
+                    System.out.println("Front blocker Left clear, right clear turn left");
                     motorController.left(DEGREES_TO_TURN);
-                    System.out.println("Front clear move forward");
-                    motorController.forward("HIGH");
-                } else if (rightmeasuredDistance > MINIMAL_DISTANCE) {
-                    //motor right
-                    System.out.println("Right clear turn Right");
+                    motorController.forward("MEDIUM");
+                } else if (frontmeasuredDistance < MINIMAL_DISTANCE &&
+                           leftmeasuredDistance < MINIMAL_DISTANCE &&
+                           rightmeasuredDistance > MINIMAL_DISTANCE) {
+                    System.out.println("Front blocked Left blocked, right clear turn right");
                     motorController.right(DEGREES_TO_TURN);
                     System.out.println("Front clear move forward");
-                    motorController.forward("HIGH");
-                } else if ((leftmeasuredDistance > MINIMAL_DISTANCE) && (rightmeasuredDistance > MINIMAL_DISTANCE)) {
-                    System.out.println("Left clear turn left");
+                    motorController.forward("MEDIUM");
+                } else if (frontmeasuredDistance < MINIMAL_DISTANCE &&
+                            leftmeasuredDistance > MINIMAL_DISTANCE &&
+                            rightmeasuredDistance < MINIMAL_DISTANCE) {
+                    System.out.println("Front blocked Left clear, right blocked turn left");
                     motorController.left(DEGREES_TO_TURN);
-                    System.out.println("Front clear move forward");
-                    motorController.forward("HIGH");
+                    motorController.forward("MEDIUM");
+                } else if (frontmeasuredDistance < MINIMAL_DISTANCE &&
+                           leftmeasuredDistance < MINIMAL_DISTANCE &&
+                           rightmeasuredDistance < MINIMAL_DISTANCE) {
+                    System.out.println("Front blocked Left blocked, right blocked going backwards");
+                    motorController.backward("MEDIUM");
 
-                } else if (    (frontmeasuredDistance <= MINIMAL_DISTANCE)
-                            && (leftmeasuredDistance <= MINIMAL_DISTANCE)
-                            && (rightmeasuredDistance <= MINIMAL_DISTANCE)) {
-                    //motor backward
-                    System.out.println("All Blocked Going Backward");
-                    motorController.backward("HIGH");
-                    // Since there is no sensor in the back, I want to tell the robot to check all the sensors again and wait until it is clear then
-                    // turn left or right
+                    Thread.sleep(200);
+
                     boolean stopmoving = false;
                     while (stopmoving == false) {
-                        leftmeasuredDistance = leftSensor.measureDistance();
-                        rightmeasuredDistance = rightSensor.measureDistance();
-                        if (leftmeasuredDistance > MINIMAL_DISTANCE) {
-                            motorController.stop();
-                            System.out.println("Left clear turn left");
-                            motorController.left(DEGREES_TO_TURN);
-                            System.out.println("Front clear move forward");
-                            motorController.forward("HIGH");
-                            // Quit loop
+
+                        // Sensors
+                        leftmeasuredDistance = leftSensor.measureDistanceAverage(SAMPLESIZE);
+                        rightmeasuredDistance = rightSensor.measureDistanceAverage(SAMPLESIZE);
+
+                        // If any of sensor is unblocked continue with loop
+                        if ((leftmeasuredDistance > MINIMAL_DISTANCE) || (rightmeasuredDistance > MINIMAL_DISTANCE))
                             stopmoving = true;
-                        } else if (rightmeasuredDistance > MINIMAL_DISTANCE) {
-                            System.out.println("Right clear turn Right");
-                            motorController.right(DEGREES_TO_TURN);
-                            System.out.println("Front clear move forward");
-                            motorController.forward("HIGH");
-                            stopmoving = true;
-                        }
                     }
                 }
+
             } catch (TimeoutException te) {
                 System.out.println("Sensor time out -- stop car");
                 motorController.stop();

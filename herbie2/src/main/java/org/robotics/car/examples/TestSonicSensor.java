@@ -32,7 +32,8 @@ public class TestSonicSensor {
     public static void main(String ars[]) throws Exception {
 
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and
-        UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Sonic sensor", 2, 3);
+        //UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Sonic sensor", 5, 6);
+        UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Left sensor", 0, 2);
         float distance =0;
         for (int i=0; i < 20; i++) {
 
