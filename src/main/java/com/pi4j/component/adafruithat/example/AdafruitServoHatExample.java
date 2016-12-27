@@ -47,7 +47,7 @@ public class AdafruitServoHatExample {
 
 	public static void main(String[] args) {
 		final int servoHATAddress = 0X40;
-		AdafruitServoHat servoHat = new AdafruitServoHat(servoHATAddress);
+		final AdafruitServoHat servoHat = new AdafruitServoHat(servoHATAddress);
 		AdafruitServo servo  = servoHat.getServo("S01");
 		
 		/*

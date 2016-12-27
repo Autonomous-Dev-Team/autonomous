@@ -47,7 +47,7 @@ public class AdafruitStepperMotorHatExample {
 		final int motorHATAddress = 0X60;
 		
 		//create instance of a motor HAT
-		AdafruitMotorHat motorHat = new AdafruitMotorHat(motorHATAddress);
+		final AdafruitMotorHat motorHat = new AdafruitMotorHat(motorHATAddress);
 		/*
 		 * Because the Adafruit motor HAT uses PWMs that pulse independently of
 		 * the Raspberry Pi the motors will keep running at its current direction
