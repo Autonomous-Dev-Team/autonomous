@@ -30,6 +30,10 @@ import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 
+import java.util.concurrent.atomic.AtomicIntegerArray;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicLongArray;
+
 /**
  * Implementing Sonic Sensor Model HC-SR04
  * Datasheet: http://www.micropik.com/PDF/HCSR04.pdf
@@ -63,15 +67,22 @@ public class UltraSonicHCSR04 extends Sensor {
 	// create gpio controller
 	private GpioController gpio = GpioFactory.getInstance();
 	
-	double distance = 0.0;	
+	double distance = 0.0;
+
+	// Constants
+	private short NUMBER_OF_POINTS_FOR_AVERAGE = 3;
+
+	// Measurement array
+	private AtomicLongArray measurmentPoints = new AtomicLongArray(NUMBER_OF_POINTS_FOR_AVERAGE);
+	private AtomicLong 		avgDistance 	 = new AtomicLong(0);
 	
 	// Constructor
 	public UltraSonicHCSR04(String name, int gpioEcho, int gpioTrigger) {
 		super(name);
 
 		// Create the GPIO pins from the input params
-		echoPin = RaspiPin.getPinByAddress(gpioEcho);
-		triggerPin = RaspiPin.getPinByAddress(gpioTrigger);
+		echoPin		= RaspiPin.getPinByAddress(gpioEcho);
+		triggerPin	= RaspiPin.getPinByAddress(gpioTrigger);
 
 		System.out.println("Echo Pin [" + echoPin.getAddress() + "] has name "+ echoPin.getName() );
 		System.out.println("Trigger Pin [" + triggerPin.getAddress() + "] has name "+ triggerPin.getName() );
@@ -79,31 +90,85 @@ public class UltraSonicHCSR04 extends Sensor {
 		// Sonic Sensor specific members
 		this.gpioEcho	 = gpioEcho;
 		this.gpioTrigger = gpioTrigger;
-		this.distance = -1;
+		this.distance	 = -1;
 
 		// Provision pins
 		this.echoIn		= gpio.provisionDigitalInputPin(echoPin, "EchoSignal", PinPullResistance.PULL_UP);
 		this.triggerOut	= gpio.provisionDigitalOutputPin(triggerPin, "TriggerSignal", PinState.LOW);
 		
-		triggerOut.low();	
-	}
+		triggerOut.low();
 
-	// Setters and Getters
-	public float getDistance() {
-		return 0;
-		
+		// Set measurement semaphore
+		this.isRunning.set(true);
 	}
 
 	/**
 	 * Public methods start here
-	 *
 	 */
-	
-	public void setDistance(double distance) {
-		this.distance = distance;
+
+
+	/**
+	 * Thread that runs the measurement until sensor is de-initialized
+	 */
+	@Override
+	public void run() {
+		System.out.println("Start sensor " + this.getSensorName());
+
+		boolean bHaveAllmeasurements = false;
+		int measurementInterval = 211;
+
+		// Run loop until shutdown /uninitialize is called
+		while (isRunning.get()) {
+
+			/** The result is the average of the last NUMBER_OF_POINTS_FOR_AVERAGE measurements.
+			/* Each measurement will update the array and the average is calculated immediately.
+			 */
+
+			for (int i = 0; i<NUMBER_OF_POINTS_FOR_AVERAGE;i++){
+				try {
+					measurmentPoints.set(i, (long)measureDistance());
+
+					if (bHaveAllmeasurements == true) {
+
+						// Re-calculate the average
+						long measurement = 0;
+						for (int ii = 0; ii < NUMBER_OF_POINTS_FOR_AVERAGE; ii++) {
+							measurement = measurement + measurmentPoints.get(ii);
+							//System.out.println(getSensorName() + " measurement [" + ii + "] Measurement: " + measurmentPoints.get(ii));
+						}
+						// Adjust value
+						avgDistance.set(measurement / NUMBER_OF_POINTS_FOR_AVERAGE);
+					}
+
+					try {
+						// Sleep before next measurement
+						Thread.sleep(measurementInterval);
+					} catch (InterruptedException e) {
+						System.out.println("Wait interrupted -- just continoue");
+					}
+				} catch (TimeoutException te) {
+					// measurement failed ignore it
+					System.out.println("Measurement sensor " + getSensorName() + te);
+					if (i > 0)
+						i--;
+				}
+			}
+			bHaveAllmeasurements = true;
+			measurementInterval = 349;
+		}
+
+		System.out.println("Stop sensor " + this.getSensorName());
+	}
+
+	/**
+	 * getDistance returns the current calculated value.
+	 * @return measured distance that is averaged over several measurements
+	 */
+	public long getDistance() {
+		return this.avgDistance.get();
 	}
 	
-	
+
      /** This method returns the distance measured by the sensor in cm
      * 
      * @throws TimeoutException if a timeout occurs
@@ -159,19 +224,19 @@ public class UltraSonicHCSR04 extends Sensor {
             System.err.println( "Interrupt during trigger" );
         }
 	}
-	
+
 	/**
      * Wait for a high on the echo pin
-     * 
+     *
      * @throws .TimeoutException if no high appears in time
      */
     private void waitForSignal() throws TimeoutException {
         int countdown = TIMEOUT;
-        
+
         while( this.echoIn.isLow() && countdown > 0 ) {
             countdown--;
         }
-        
+   //     System.out.println("wait for signal conter " + countdown + " Sensor name " + getSensorName());
         if( countdown <= 0 ) {
             throw new TimeoutException( "Timeout waiting for signal start" );
         }
@@ -189,9 +254,9 @@ public class UltraSonicHCSR04 extends Sensor {
         }
         long end = System.nanoTime();
         
-        if( countdown <= 0 ) {
-            throw new TimeoutException( "Timeout waiting for signal end" );
-        }
+ //       if( countdown <= 0 ) {
+ //           throw new TimeoutException( "Timeout waiting for signal end" );
+ //       }
         
         return (long)Math.ceil( ( end - start ) / 1000.0 );  // Return micro seconds
     }

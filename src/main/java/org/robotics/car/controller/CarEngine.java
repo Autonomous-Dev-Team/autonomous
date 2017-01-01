@@ -74,6 +74,26 @@ public class CarEngine {
         UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 0, 2);
         UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 4, 3);
 
+        // Start measurement for each sensor
+        try {
+            frontSensor.start();
+            Thread.sleep(163);
+            leftSensor.start();
+            Thread.sleep(157);
+            rightSensor.start();
+            Thread.sleep(149);
+
+            while (rightSensor.getDistance() == 0) {
+                Thread.sleep(350);
+            }
+        } catch (InterruptedException ie) {
+            System.out.println("Sleep interruppted");
+        }
+
+
+        System.out.println("Sensors initialized and ready to measure distances...");
+
+
         // Create Motor controller
         motorController = new MotorController();
 
@@ -119,11 +139,14 @@ public class CarEngine {
                 //read all the sensors
                 System.out.println("Measure distance ..");
 
-                frontmeasuredDistance = frontSensor.measureDistanceAverage(SAMPLESIZE);
+                //frontmeasuredDistance = frontSensor.measureDistanceAverage(SAMPLESIZE);
+                frontmeasuredDistance = (float) frontSensor.getDistance();
                 System.out.println("Front measurement: " + frontmeasuredDistance);
-                leftmeasuredDistance = leftSensor.measureDistanceAverage(SAMPLESIZE);
+                //leftmeasuredDistance = leftSensor.measureDistanceAverage(SAMPLESIZE);
+                leftmeasuredDistance = (float) leftSensor.getDistance();
                 System.out.println("Left measurement: " + leftmeasuredDistance);
-                rightmeasuredDistance = rightSensor.measureDistanceAverage(SAMPLESIZE);
+                //rightmeasuredDistance = rightSensor.measureDistanceAverage(SAMPLESIZE);
+                rightmeasuredDistance = (float) rightSensor.getDistance();
                 System.out.println("Right measurement: " + rightmeasuredDistance);
 
                 //System.out.println("Measured: Front " + frontmeasuredDistance + " Left Side " + leftmeasuredDistance + " Right Side " + rightmeasuredDistance);
@@ -167,8 +190,14 @@ public class CarEngine {
                         rightmeasuredDistance = rightSensor.measureDistanceAverage(SAMPLESIZE);
 
                         // If any of sensor is unblocked continue with loop
-                        if ((leftmeasuredDistance > MINIMAL_DISTANCE) || (rightmeasuredDistance > MINIMAL_DISTANCE))
+                        if ((leftmeasuredDistance > MINIMAL_DISTANCE) || (rightmeasuredDistance > MINIMAL_DISTANCE)) {
                             stopmoving = true;
+
+                            if (leftmeasuredDistance > MINIMAL_DISTANCE)
+                                motorController.left(DEGREES_TO_TURN);
+                            else
+                                motorController.right(DEGREES_TO_TURN);
+                        }
                     }
                 }
 
@@ -178,6 +207,12 @@ public class CarEngine {
                 break;
             }
         }
+
+        // Stop sensors
+        frontSensor.shutdown();
+        leftSensor.shutdown();
+        rightSensor.shutdown();
+
 
 		// stop all GPIO activity/threads by shutting down the GPIO controller
         // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)

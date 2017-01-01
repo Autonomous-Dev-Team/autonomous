@@ -38,9 +38,7 @@ public class Sensor extends Thread {
 	public Sensor(String sensorName) {
 		this.sensorName = sensorName;
 	};
-	
-	
-	
+
 	public int getStatus() {
 		return this.sensorStatus;
 	}

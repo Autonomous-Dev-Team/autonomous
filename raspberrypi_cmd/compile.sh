@@ -18,5 +18,5 @@ echo "Compile Java code ..."
 javac @ProjectFileList -d bin -classpath bin:/opt/pi4j/lib/'*' -sourcepath org:com
 
 echo "Build library herbie-0.0.2-SNAPSHOT.jar "
-jar -cf target/herbie-0.0.2-SNAPSHOT.jar -C bin/ .
+jar -cf target/herbie-0.0.3-SNAPSHOT.jar -C bin/ .
 

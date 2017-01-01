@@ -29,7 +29,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MotorController {
 
     // Constant
-    private double TIME_FOR_ONE_DEGREE_TURN = 16.667; //milli seconds per degree
+    // private double TIME_FOR_ONE_DEGREE_TURN = 16.667; //milli seconds per degree
+    private double TIME_FOR_ONE_DEGREE_TURN = 15; //milli seconds per degree
 
     static private float DEFAULT_POWER_LEVEL = 30.0f;
     static private float DEFAULT_SPEED = 20.0f;
@@ -53,8 +54,8 @@ public class MotorController {
     }
 
     public boolean initialize() {
-        System.out.println("initialize. Current status " + this.isSystemInitialized.toString());
         if (this.isSystemInitialized.get() == false) {
+            System.out.println("Initialize Motor Shield");
 
             // Initialize Hat
             motorHat = new AdafruitMotorHat(this.motorHATAddress);
@@ -126,7 +127,7 @@ public class MotorController {
         // Initialization
         float powerLevel = 0.0f;
 
-        // Stop all motors and break mode
+  /*      // Stop all motors and break mode
         motorFrontLeft.setBrakeMode(true);
         this.motorFrontLeft.stop();
 
@@ -152,7 +153,7 @@ public class MotorController {
         this.motorFrontLeft.setBrakeMode(false);
         this.motorFrontRight.setBrakeMode(false);
         this.motorBackLeft.setBrakeMode(false);
-        this.motorBackRight.setBrakeMode(false);
+        this.motorBackRight.setBrakeMode(false);*/
 
 
         /*this.motorFrontLeft.setPowerRange(powerLevel);
