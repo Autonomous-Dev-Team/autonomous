@@ -124,13 +124,14 @@ public class UltraSonicHCSR04 extends Sensor {
 		System.out.println("Start sensor " + this.getSensorName());
 
 		boolean bHaveAllmeasurements = false;
-		int measurementInterval = 431;
+		int measurementInterval = 341;
 
 		// Run loop until shutdown /uninitialize is called
 		while (isRunning.get()) {
 
 			try {
 				avgDistance.set((long)measureDistance());
+
 
 				// Sleep before next measurement
 				Thread.sleep(measurementInterval);
@@ -200,34 +201,24 @@ public class UltraSonicHCSR04 extends Sensor {
 		float result = 0f;
 		long duration = 0l;
 
-    	for (int i=0; i < this.numberOfPointsForAverage; i++) {
+		while (duration == 0) {
+            try {
+                long startTime = System.currentTimeMillis();
+                this.triggerSensor();
+                this.waitForSignal();
+                duration = this.measureSignal();
+                Thread.sleep(250);
+            } catch (TimeoutException te) {
+                // drop result
+                duration = 0;
+            } catch (InterruptedException ie) {
+                // timeout interrupted -- ignore and just continue
+            }
+        }
 
-    		try {
-				long startTime = System.currentTimeMillis();
-				this.triggerSensor();
-				this.waitForSignal();
-				this.measurementSet[i] = duration = this.measureSignal();
-				Thread.sleep(100);
-			}catch (TimeoutException te) {
-    			// drop result
-				i--;
-			} catch (InterruptedException ie) {
-    			// timeout interrupted -- ignore and just continue
-			}
-
-
-			//System.out.printf("Time %d ms to run measurement. ", System.currentTimeMillis() - startTime);
-
-			// Round up result before returning
-			//float result = duration * SOUND_SPEED / ( 2 * 10000 );
-		}
-
-		for (int i=0; i < this.numberOfPointsForAverage; i++) {
-    		result = result + measurementSet[i];
-		}
-
+        // Calculate the speed in cm and round it up
 		// round up result -- Maurice will do it
-		return (float) Math.ceil((result/this.numberOfPointsForAverage)/58);
+		return (float) Math.ceil(duration/58);
 	}
 
 	public float measureDistanceAverage(int samplesize) throws TimeoutException {
