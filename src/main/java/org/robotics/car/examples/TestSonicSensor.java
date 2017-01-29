@@ -33,8 +33,25 @@ public class TestSonicSensor {
 
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and
         //UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Sonic sensor", 5, 6);
-        UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Left sensor", 0, 2);
+        UltraSonicHCSR04 testSensor = new UltraSonicHCSR04("Test sensor", 0, 2);
+
         float distance =0;
+
+        // Start measureing the distance
+        testSensor.start();
+
+        Thread.sleep(1000);
+
+        while (true) {
+            distance = (float) testSensor.getDistance();
+
+            System.out.println("Sensor " + testSensor.getSensorName() + " measured distance " + distance);
+            Thread.sleep(1000);
+
+        }
+
+        /*
+
         for (int i=0; i < 20; i++) {
 
             System.out.println("Measure distance...");
@@ -50,6 +67,7 @@ public class TestSonicSensor {
 
             Thread.sleep(1000);
         }
+        */
 
     }
 }
