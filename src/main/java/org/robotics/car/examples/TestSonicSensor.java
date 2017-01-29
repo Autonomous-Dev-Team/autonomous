@@ -33,7 +33,7 @@ public class TestSonicSensor {
 
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and
         //UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Sonic sensor", 5, 6);
-        UltraSonicHCSR04 testSensor = new UltraSonicHCSR04("Test sensor", 0, 2);
+        UltraSonicHCSR04 testSensor = new UltraSonicHCSR04("Test sensor", 0, 2, 3);
 
         float distance =0;
 
