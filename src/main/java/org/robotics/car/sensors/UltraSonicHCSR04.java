@@ -227,7 +227,7 @@ public class UltraSonicHCSR04 extends Sensor {
 		}
 
 		// round up result -- Maurice will do it
-		return (float) Math.ceil(result/this.numberOfPointsForAverage);
+		return (float) Math.ceil((result/this.numberOfPointsForAverage)/58);
 	}
 
 	public float measureDistanceAverage(int samplesize) throws TimeoutException {
