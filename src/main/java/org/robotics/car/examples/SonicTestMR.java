@@ -49,5 +49,8 @@ public class SonicTestMR {
             System.out.println("Measured distance " + distance);
             Thread.sleep(1000);
         }
+
+        // Stop sensor
+        frontSensor.shutdown();
     }
 }

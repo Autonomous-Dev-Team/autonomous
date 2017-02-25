@@ -198,7 +198,6 @@ public class UltraSonicHCSR04 extends Sensor {
 
 		while (duration == 0) {
             try {
-                long startTime = System.currentTimeMillis();
                 this.triggerSensor();
                 this.waitForSignal();
                 duration = this.measureSignal();
@@ -212,7 +211,6 @@ public class UltraSonicHCSR04 extends Sensor {
         }
 
         // Calculate the speed in cm and round it up
-		// round up result -- Maurice will do it
 		return (float) Math.ceil(duration/58);
 	}
 
@@ -245,10 +243,14 @@ public class UltraSonicHCSR04 extends Sensor {
 
 	private void triggerSensor() {
 	try {
+			// Settle trigger signal
+			this.triggerOut.low();
+			Thread.sleep(50);
+			// Start measurement
             this.triggerOut.high();
 
-            //Thread.sleep( 0, TRIG_DURATION_IN_MICROS * 1000 );
-			Thread.sleep(TRIG_DURATION_IN_MICROS);
+            //Sleep for 10 micro seconds;
+			Thread.sleep(0,TRIG_DURATION_IN_MICROS *1000);
 			this.triggerOut.low();
 
         } catch (InterruptedException ex) {
