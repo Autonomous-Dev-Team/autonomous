@@ -44,7 +44,7 @@ public class SonicTestMR {
         System.out.println("We'll measure the distance every second for  20 times ");
 
         for (int i = 0; i < 20; i++) {
-            distance = frontSensor.measureDistance();
+            distance = frontSensor.getDistance();
 
             System.out.println("Measured distance " + distance);
             Thread.sleep(1000);
