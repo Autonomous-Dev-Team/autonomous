@@ -33,7 +33,7 @@ public class TestSonicSensor {
 
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and
         //UltraSonicHCSR04 frontSensor = new UltraSonicHCSR04("Sonic sensor", 5, 6);
-        UltraSonicHCSR04 testSensor = new UltraSonicHCSR04("Test sensor", 0, 2, 3);
+        UltraSonicHCSR04 testSensor = new UltraSonicHCSR04("Test sensor", 0, 2);
 
         float distance =0;
 
@@ -63,7 +63,6 @@ public class TestSonicSensor {
             } catch (TimeoutException te) {
                 System.out.println("Timeout from sensor " + te);
             }
-
 
             Thread.sleep(1000);
         }

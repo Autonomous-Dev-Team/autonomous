@@ -80,7 +80,7 @@ public class UltraSonicHCSR04 extends Sensor {
 	private AtomicLong 		avgDistance 	 = new AtomicLong(0);
 	
 	// Constructor
-	public UltraSonicHCSR04(String name, int gpioEcho, int gpioTrigger, int avgMeasurementSet) {
+	public UltraSonicHCSR04(String name, int gpioEcho, int gpioTrigger) {
 		super(name);
 
 		// Create the GPIO pins from the input params
@@ -89,11 +89,6 @@ public class UltraSonicHCSR04 extends Sensor {
 
 		System.out.println("Echo Pin [" + echoPin.getAddress() + "] has name "+ echoPin.getName() );
 		System.out.println("Trigger Pin [" + triggerPin.getAddress() + "] has name "+ triggerPin.getName() );
-		System.out.println("Number of measurements to average result [" + avgMeasurementSet + "]"  );
-
-		// Initialize set with measurement points
-		this.numberOfPointsForAverage = avgMeasurementSet;
-		this.measurementSet = new long[avgMeasurementSet];
 
 
 		// Sonic Sensor specific members
