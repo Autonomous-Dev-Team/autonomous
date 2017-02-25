@@ -69,6 +69,9 @@ public class UltraSonicHCSR04 extends Sensor {
 	
 	double distance = 0.0;
 
+	private long[] measurementSet = null;
+	private int    numberOfPointsForAverage = 1;
+
 	// Constants
 	private short NUMBER_OF_POINTS_FOR_AVERAGE = 3;
 
@@ -77,7 +80,7 @@ public class UltraSonicHCSR04 extends Sensor {
 	private AtomicLong 		avgDistance 	 = new AtomicLong(0);
 	
 	// Constructor
-	public UltraSonicHCSR04(String name, int gpioEcho, int gpioTrigger) {
+	public UltraSonicHCSR04(String name, int gpioEcho, int gpioTrigger, int avgMeasurementSet) {
 		super(name);
 
 		// Create the GPIO pins from the input params
@@ -86,6 +89,12 @@ public class UltraSonicHCSR04 extends Sensor {
 
 		System.out.println("Echo Pin [" + echoPin.getAddress() + "] has name "+ echoPin.getName() );
 		System.out.println("Trigger Pin [" + triggerPin.getAddress() + "] has name "+ triggerPin.getName() );
+		System.out.println("Number of measurements to average result [" + avgMeasurementSet + "]"  );
+
+		// Initialize set with measurement points
+		this.numberOfPointsForAverage = avgMeasurementSet;
+		this.measurementSet = new long[avgMeasurementSet];
+
 
 		// Sonic Sensor specific members
 		this.gpioEcho	 = gpioEcho;
@@ -115,16 +124,30 @@ public class UltraSonicHCSR04 extends Sensor {
 		System.out.println("Start sensor " + this.getSensorName());
 
 		boolean bHaveAllmeasurements = false;
-		int measurementInterval = 211;
+		int measurementInterval = 341;
 
 		// Run loop until shutdown /uninitialize is called
 		while (isRunning.get()) {
+
+			try {
+				avgDistance.set((long)measureDistance());
+
+
+				// Sleep before next measurement
+				Thread.sleep(measurementInterval);
+			} catch (InterruptedException e) {
+				System.out.println("Wait interrupted -- just continoue");
+			} catch (TimeoutException te) {
+				// Just log
+				System.out.println("Timeout exception" + te);
+			}
+
 
 			/** The result is the average of the last NUMBER_OF_POINTS_FOR_AVERAGE measurements.
 			/* Each measurement will update the array and the average is calculated immediately.
 			 */
 
-			for (int i = 0; i<NUMBER_OF_POINTS_FOR_AVERAGE;i++){
+		/*	for (int i = 0; i<NUMBER_OF_POINTS_FOR_AVERAGE;i++){
 				try {
 					measurmentPoints.set(i, (long)measureDistance());
 
@@ -154,7 +177,7 @@ public class UltraSonicHCSR04 extends Sensor {
 				}
 			}
 			bHaveAllmeasurements = true;
-			measurementInterval = 349;
+			measurementInterval = 349;*/
 		}
 
 		System.out.println("Stop sensor " + this.getSensorName());
@@ -173,19 +196,29 @@ public class UltraSonicHCSR04 extends Sensor {
      * 
      * @throws TimeoutException if a timeout occurs
      */
-    public float measureDistance() throws TimeoutException {
-		long startTime = System.currentTimeMillis();
-        this.triggerSensor();
-        this.waitForSignal();
-        long duration = this.measureSignal();
-        
-        //System.out.printf("Time %d ms to run measurement. ", System.currentTimeMillis() - startTime);
+    public float measureDistance() throws TimeoutException{
 
-		// Round up result before returning
-		float result = duration * SOUND_SPEED / ( 2 * 10000 );
+		float result = 0f;
+		long duration = 0l;
 
+		while (duration == 0) {
+            try {
+                long startTime = System.currentTimeMillis();
+                this.triggerSensor();
+                this.waitForSignal();
+                duration = this.measureSignal();
+                Thread.sleep(250);
+            } catch (TimeoutException te) {
+                // drop result
+                duration = 0;
+            } catch (InterruptedException ie) {
+                // timeout interrupted -- ignore and just continue
+            }
+        }
+
+        // Calculate the speed in cm and round it up
 		// round up result -- Maurice will do it
-		return (float) Math.ceil(result);
+		return (float) Math.ceil(duration/58);
 	}
 
 	public float measureDistanceAverage(int samplesize) throws TimeoutException {
@@ -218,8 +251,11 @@ public class UltraSonicHCSR04 extends Sensor {
 	private void triggerSensor() {
 	try {
             this.triggerOut.high();
-            Thread.sleep( 0, TRIG_DURATION_IN_MICROS * 1000 );
-            this.triggerOut.low();
+
+            //Thread.sleep( 0, TRIG_DURATION_IN_MICROS * 1000 );
+			Thread.sleep(TRIG_DURATION_IN_MICROS);
+			this.triggerOut.low();
+
         } catch (InterruptedException ex) {
             System.err.println( "Interrupt during trigger" );
         }
