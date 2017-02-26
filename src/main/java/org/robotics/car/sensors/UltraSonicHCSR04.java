@@ -52,7 +52,7 @@ public class UltraSonicHCSR04 extends Sensor {
     private final static int WAIT_DURATION_IN_MILLIS = 60; // wait 60 milli s
 
 	// Sensor probing timeout
-    private final static int TIMEOUT = 1000;
+    private final static int TIMEOUT = 5000;
 	
 	int gpioEcho    = -1;
 	int gpioTrigger = -1;
@@ -129,9 +129,9 @@ public class UltraSonicHCSR04 extends Sensor {
 
 
 				// Sleep before next measurement
-				Thread.sleep(measurementInterval);
-			} catch (InterruptedException e) {
-				System.out.println("Wait interrupted -- just continoue");
+//				Thread.sleep(measurementInterval);
+//			} catch (InterruptedException e) {
+			//	System.out.println("Wait interrupted -- just continoue");
 			} catch (TimeoutException te) {
 				// Just log
 				System.out.println("Timeout exception" + te);
@@ -196,46 +196,29 @@ public class UltraSonicHCSR04 extends Sensor {
 		float result = 0f;
 		long duration = 0l;
 
-		while (duration == 0) {
-            try {
-                this.triggerSensor();
-                this.waitForSignal();
-                duration = this.measureSignal();
-                Thread.sleep(250);
-            } catch (TimeoutException te) {
+//		while (duration == 0) {
+//            try {
+//                this.triggerSensor();
+//                this.waitForSignal();
+//                duration = this.measureSignal();
+//                Thread.sleep(250);
+//            } catch (TimeoutException te) {
                 // drop result
-                duration = 0;
-            } catch (InterruptedException ie) {
+//                duration = 0;
+//            }// catch (InterruptedException ie) {
                 // timeout interrupted -- ignore and just continue
-            }
-        }
+//            }
+//        }
 
         // Calculate the speed in cm and round it up
-		return (float) Math.ceil(duration/58);
+		//return (float) Math.ceil(duration/58);
+
+		//return (float) Math.ceil(duration*0.034);
+
+        // Travels 0.034 cm/ms  --> reult is round trip so just use half 0.017
+		return (float) Math.ceil(measureTime()*0.017);
 	}
 
-	public float measureDistanceAverage(int samplesize) throws TimeoutException {
-		//Local Variables
-		float measurements = 0;
-		float measurement = 0;
-		for (int i = 0; i < samplesize; i++) {
-			try {
-				measurement = measureDistance();
-
-				measurements = measurements + measurement;
-				Thread.sleep(300);
-			} catch (TimeoutException te) {
-				//System.out.println("Timeout ignore measurement Loop " + i);
-				i--;
-			}
-			catch (InterruptedException ie) {
-				System.out.println("Loop interrupted..");
-			}
-		}
-		//Calculate the Average and return the result]
-		return measurements/samplesize;
-
-	}
 
 	/**
 	 * Start of private methods
@@ -250,7 +233,11 @@ public class UltraSonicHCSR04 extends Sensor {
             this.triggerOut.high();
 
             //Sleep for 10 micro seconds;
-			Thread.sleep(0,TRIG_DURATION_IN_MICROS *1000);
+			//Thread.sleep(0,TRIG_DURATION_IN_MICROS *1000);
+
+			// 100 micro seconds
+			Thread.sleep(0,100 *1000);
+
 			this.triggerOut.low();
 
         } catch (InterruptedException ex) {
@@ -269,7 +256,7 @@ public class UltraSonicHCSR04 extends Sensor {
         while( this.echoIn.isLow() && countdown > 0 ) {
             countdown--;
         }
-   //     System.out.println("wait for signal conter " + countdown + " Sensor name " + getSensorName());
+
         if( countdown <= 0 ) {
             throw new TimeoutException( "Timeout waiting for signal start" );
         }
@@ -287,11 +274,63 @@ public class UltraSonicHCSR04 extends Sensor {
         }
         long end = System.nanoTime();
         
- //       if( countdown <= 0 ) {
- //           throw new TimeoutException( "Timeout waiting for signal end" );
- //       }
+       if( countdown <= 0 ) {
+           throw new TimeoutException( "Timeout waiting for signal end" );
+       }
         
         return (long)Math.ceil( ( end - start ) / 1000.0 );  // Return micro seconds
     }
 
+    /**
+     * Encapsulated measuremnt routine in one method call for optimization
+     * @return echo duration in milliseconds
+     * @throws TimeoutException
+     */
+    private long measureTime() throws TimeoutException {
+
+        int countdown = TIMEOUT;
+        this.triggerOut.low();
+
+        try {
+            // Settle trigger signal
+            Thread.sleep(100);
+
+            // Start measurement
+            this.triggerOut.high();
+
+            // 10 micro seconds pulse
+            Thread.sleep(0,10 *1000);
+
+            // Wait for the signal
+            while( this.echoIn.isLow() && countdown > 0 ) {
+                countdown--;
+            }
+
+            if( countdown <= 0 ) {
+                throw new TimeoutException( "Timeout waiting for signal start" );
+            }
+
+            //Reset counter
+            countdown = TIMEOUT;
+            long start = System.nanoTime();
+
+            // Measure result pulse
+            while( this.echoIn.isHigh() && countdown > 0 ) {
+                countdown--;
+            }
+            long end = System.nanoTime();
+
+            if( countdown <= 0 ) {
+                throw new TimeoutException( "Timeout waiting for signal end" );
+            }
+
+            // Pulse lenghth in milli seconds
+            return (long)Math.ceil( ( end - start ) / 1000.0 );  // Return micro seconds
+
+        } catch (InterruptedException ex) {
+            System.err.println( "Interrupt during trigger" );
+        }
+
+        return 0l;
+    }
 }
