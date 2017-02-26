@@ -186,8 +186,8 @@ public class CarEngine {
                     while (stopmoving == false) {
 
                         // Sensors
-                        leftmeasuredDistance = leftSensor.measureDistanceAverage(SAMPLESIZE);
-                        rightmeasuredDistance = rightSensor.measureDistanceAverage(SAMPLESIZE);
+                        leftmeasuredDistance = leftSensor.getDistance();
+                        rightmeasuredDistance = rightSensor.getDistance();
 
                         // If any of sensor is unblocked continue with loop
                         if ((leftmeasuredDistance > MINIMAL_DISTANCE) || (rightmeasuredDistance > MINIMAL_DISTANCE)) {
