@@ -130,10 +130,12 @@ public class CarEngine {
          *
          */
 
+
         System.out.println("Herbie Online and Ready to Go");
+        try {
         while (true) {
 
-            try {
+
 
                 Thread.sleep(SLEEPING_TIME_BETWEEN_LOOP);
                 //read all the sensors
@@ -162,21 +164,21 @@ public class CarEngine {
                     motorController.left(DEGREES_TO_TURN);
                     motorController.forward("MEDIUM");
                 } else if (frontmeasuredDistance < MINIMAL_DISTANCE &&
-                           leftmeasuredDistance < MINIMAL_DISTANCE &&
-                           rightmeasuredDistance > MINIMAL_DISTANCE) {
+                        leftmeasuredDistance < MINIMAL_DISTANCE &&
+                        rightmeasuredDistance > MINIMAL_DISTANCE) {
                     System.out.println("Front blocked Left blocked, right clear turn right");
                     motorController.right(DEGREES_TO_TURN);
                     System.out.println("Front clear move forward");
                     motorController.forward("MEDIUM");
                 } else if (frontmeasuredDistance < MINIMAL_DISTANCE &&
-                            leftmeasuredDistance > MINIMAL_DISTANCE &&
-                            rightmeasuredDistance < MINIMAL_DISTANCE) {
+                        leftmeasuredDistance > MINIMAL_DISTANCE &&
+                        rightmeasuredDistance < MINIMAL_DISTANCE) {
                     System.out.println("Front blocked Left clear, right blocked turn left");
                     motorController.left(DEGREES_TO_TURN);
                     motorController.forward("MEDIUM");
                 } else if (frontmeasuredDistance < MINIMAL_DISTANCE &&
-                           leftmeasuredDistance < MINIMAL_DISTANCE &&
-                           rightmeasuredDistance < MINIMAL_DISTANCE) {
+                        leftmeasuredDistance < MINIMAL_DISTANCE &&
+                        rightmeasuredDistance < MINIMAL_DISTANCE) {
                     System.out.println("Front blocked Left blocked, right blocked going backwards");
                     motorController.backward("MEDIUM");
 
@@ -200,13 +202,11 @@ public class CarEngine {
                         }
                     }
                 }
-
-            } catch (TimeoutException te) {
-                System.out.println("Sensor time out -- stop car");
-                motorController.stop();
-                break;
             }
+        } catch (Exception ex){
+            System.out.println("Encountered Exception: "+ ex);
         }
+
 
         // Stop sensors
         frontSensor.shutdown();
