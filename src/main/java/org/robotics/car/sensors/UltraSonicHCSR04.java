@@ -239,7 +239,7 @@ public class UltraSonicHCSR04 extends Sensor {
             this.triggerOut.high();
 
             // 15 micro seconds pulse
-            Thread.sleep(0, 10 * 1000);
+            Thread.sleep(0, 15 * 1000);
 
 
             /**
