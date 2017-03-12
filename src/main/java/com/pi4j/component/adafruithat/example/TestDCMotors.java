@@ -73,10 +73,16 @@ public class TestDCMotors {
 		/**
 		 * Configure the motor controller. Make sure the wire match the configurations
 		 */
-		AdafruitDcMotor motorBackRight  = motorHat.getDcMotor("M1");
-		AdafruitDcMotor motorBackLeft   = motorHat.getDcMotor("M2");
-		AdafruitDcMotor motorFrontLeft  = motorHat.getDcMotor("M3");
-		AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M4");
+	//	AdafruitDcMotor motorBackRight  = motorHat.getDcMotor("M1");
+	//	AdafruitDcMotor motorBackLeft   = motorHat.getDcMotor("M2");
+	//	AdafruitDcMotor motorFrontLeft  = motorHat.getDcMotor("M3");
+	//	AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M4");
+
+		AdafruitDcMotor motorBackRight  = motorHat.getDcMotor("M3");
+		AdafruitDcMotor motorBackLeft   = motorHat.getDcMotor("M4");
+		AdafruitDcMotor motorFrontLeft  = motorHat.getDcMotor("M1");
+		AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M2");
+
 
 		//A speed value of 100 sets the DC motor to maximum throttle.
 		//The default power range is 1.0.
