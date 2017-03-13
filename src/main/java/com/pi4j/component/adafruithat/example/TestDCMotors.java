@@ -45,7 +45,7 @@ import com.pi4j.component.adafruithat.AdafruitMotorHat;
  */
 public class TestDCMotors {
 
-	static private float DEFAULT_POWER_LEVEL = 30.0f;
+	static private float DEFAULT_POWER_LEVEL = 80.0f;
 
 
 	public static void main(String[] args)  {
@@ -121,7 +121,7 @@ public class TestDCMotors {
 		motorBackRight.forward();
 		motorFrontRight.forward();
 		motorBackLeft.reverse();
-		motorHat.sleep(3000);
+		motorHat.sleep(3200);
 
 		System.out.println("Drive back to starting point ..");
 		motorFrontLeft.forward();
@@ -135,7 +135,7 @@ public class TestDCMotors {
 		motorBackLeft.forward();
 		motorFrontLeft.forward();
 		motorBackRight.reverse();
-		motorHat.sleep(3000);
+		motorHat.sleep(3200);
 
 		//Stop motors in brake mode.
 		motorFrontLeft.setBrakeMode(true);
