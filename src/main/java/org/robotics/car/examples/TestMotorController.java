@@ -32,16 +32,20 @@ public class TestMotorController {
 
         motorController = new MotorController("carpet", "M1", "M2", "M3", "M4");
 
+        System.out.println("Move forward for a second ..");
         motorController.forward();
 
         Thread.sleep(1000);
 
+        System.out.println("Turn left for 180 degrees ..");
         motorController.left(180);
 
+        System.out.println("Move forward for a second ..");
         motorController.forward();
 
         Thread.sleep(1000);
 
+        System.out.println("Turn right for 180 degrees ..");
         motorController.right(180);
 
     }
