@@ -114,7 +114,7 @@ public class TestDCMotors {
 		motorBackLeft.reverse();
 		motorHat.sleep(6000);
 
-	};
+
 		//move forward at power level specified above
 		/*System.out.println("Move foward for 2 sec");
 		motorFrontLeft.forward();
@@ -160,5 +160,6 @@ public class TestDCMotors {
 		motorBackRight.stop();
 
 		System.out.println("Done. Should be at the starting point ...");
+		*/
 	}
 }
