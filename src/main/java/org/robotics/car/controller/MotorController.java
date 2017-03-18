@@ -156,44 +156,6 @@ public class MotorController {
                 this.motorBackRight.speed(DEFAULT_SPEED * CARPET_SPEED);
             }
 
-// Initialization
-        float powerLevel = 0.0f;
-
-  /*      // Stop all motors and break mode
-        motorFrontLeft.setBrakeMode(true);
-        this.motorFrontLeft.stop();
-
-        motorFrontRight.setBrakeMode(true);
-        this.motorFrontRight.stop();
-
-        motorBackLeft.setBrakeMode(true);
-        this.motorBackLeft.stop();
-
-        motorBackRight.setBrakeMode(true);
-        this.motorBackRight.stop();
-
-        // Set power level (speed) for all 4 motors
-        if (speed.equalsIgnoreCase("low"))
-            powerLevel = this.LOW;
-        else if (speed.equalsIgnoreCase("high"))
-            powerLevel = this.HIGH;
-        else
-            powerLevel= MEDIUM;
-
-    //    System.out.println("Power level forward: " + powerLevel);
-
-        this.motorFrontLeft.setBrakeMode(false);
-        this.motorFrontRight.setBrakeMode(false);
-        this.motorBackLeft.setBrakeMode(false);
-        this.motorBackRight.setBrakeMode(false);*/
-
-
-        /*this.motorFrontLeft.setPowerRange(powerLevel);
-        this.motorFrontRight.setPowerRange(powerLevel);
-        this.motorBackLeft.setPowerRange(powerLevel);
-        this.motorBackRight.setPowerRange(powerLevel);*/
-
-
         // All 4 motors forward
       //  System.out.println("Start motors forward");
         this.motorFrontLeft.forward();
@@ -201,14 +163,11 @@ public class MotorController {
         this.motorBackLeft.forward();
         this.motorBackRight.forward();
 
-        //this.motorHat.sleep(1000);
-
-        //System.out.println("Done running forward");
 
         return true;
     }
 
-    public boolean left(int degrees) {
+    public boolean right(int degrees) {
         double timeToTurn = degrees * BASETIME_FOR_ONE_DEGREE ;
 
         if (this.TERRAIN_TYPE.equalsIgnoreCase("carpet") )
@@ -229,17 +188,6 @@ public class MotorController {
         motorBackRight.stop();
 
 
-        // Set default power mode for tuen
-        /*motorFrontLeft.setPowerRange(HIGH);
-        motorFrontRight.setPowerRange(HIGH);
-        motorBackLeft.setPowerRange(HIGH);
-        motorBackRight.setPowerRange(HIGH);*/
-
-        this.motorFrontLeft.speed(HIGH);
-        this.motorFrontRight.speed(HIGH);
-        this.motorBackLeft.speed(HIGH);
-        this.motorBackRight.speed(HIGH);
-
 
         this.motorFrontRight.reverse();
         this.motorFrontLeft.forward();
@@ -252,7 +200,7 @@ public class MotorController {
         return true;
     }
 
-    public boolean right(int degrees) {
+    public boolean left(int degrees) {
         double timeToTurn = degrees * BASETIME_FOR_ONE_DEGREE ;
             if (this.TERRAIN_TYPE.equalsIgnoreCase("carpet") )
                 timeToTurn = timeToTurn *3;
@@ -275,25 +223,12 @@ public class MotorController {
         motorBackRight.stop();
 
 
-        this.motorFrontLeft.speed(HIGH);
-        this.motorFrontRight.speed(HIGH);
-        this.motorBackLeft.speed(HIGH);
-        this.motorBackRight.speed(HIGH);
-
-
-        long timeToRun = (long)(BASETIME_FOR_ONE_DEGREE * degrees);
         this.motorFrontRight.forward();
         this.motorBackLeft.reverse();
         this.motorFrontLeft.reverse();
         this.motorBackRight.forward();
 
-        motorHat.sleep(timeToRun);
-
-        this.motorFrontLeft.speed(DEFAULT_SPEED);
-        this.motorFrontRight.speed(DEFAULT_SPEED);
-        this.motorBackLeft.speed(DEFAULT_SPEED);
-        this.motorBackRight.speed(DEFAULT_SPEED);
-
+        motorHat.sleep((long)timeToTurn);
 
         return true;
     }
@@ -306,10 +241,7 @@ public class MotorController {
             this.motorBackRight.speed(DEFAULT_SPEED * CARPET_SPEED);
         }
 
-        // Initialization
-        float powerLevel = 0.0f;
 
-        initialize();
         motorFrontLeft.setBrakeMode(true);
         motorFrontLeft.stop();
 
