@@ -48,7 +48,7 @@ public class TestDCMotors {
 	static private float DEFAULT_POWER_LEVEL = 80.0f;
 
 
-	public static void main(String[] args)  {
+	public static void main(String[] args) {
 		/*
 			Create an instance of the Motor controller
 		 */
@@ -73,14 +73,14 @@ public class TestDCMotors {
 		/**
 		 * Configure the motor controller. Make sure the wire match the configurations
 		 */
-	//	AdafruitDcMotor motorBackRight  = motorHat.getDcMotor("M1");
-	//	AdafruitDcMotor motorBackLeft   = motorHat.getDcMotor("M2");
-	//	AdafruitDcMotor motorFrontLeft  = motorHat.getDcMotor("M3");
-	//			AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M4");
+		//	AdafruitDcMotor motorBackRight  = motorHat.getDcMotor("M1");
+		//	AdafruitDcMotor motorBackLeft   = motorHat.getDcMotor("M2");
+		//	AdafruitDcMotor motorFrontLeft  = motorHat.getDcMotor("M3");
+		//			AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M4");
 
-		AdafruitDcMotor motorBackRight  = motorHat.getDcMotor("M4");
-		AdafruitDcMotor motorBackLeft   = motorHat.getDcMotor("M3");
-		AdafruitDcMotor motorFrontLeft  = motorHat.getDcMotor("M1");
+		AdafruitDcMotor motorBackRight = motorHat.getDcMotor("M4");
+		AdafruitDcMotor motorBackLeft = motorHat.getDcMotor("M3");
+		AdafruitDcMotor motorFrontLeft = motorHat.getDcMotor("M1");
 		AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M2");
 
 
@@ -91,11 +91,11 @@ public class TestDCMotors {
                  * Observtion setting all motors to 100 generates a spike that causes the
                  * Raspberry PI to reboot. Setting the max to 50 seems more reasonable
                  */
-		motorFrontLeft.setPowerRange(DEFAULT_POWER_LEVEL*2);
-		motorFrontRight.setPowerRange(DEFAULT_POWER_LEVEL*2);
+		motorFrontLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+		motorFrontRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
 
-		motorBackLeft.setPowerRange(DEFAULT_POWER_LEVEL*2);
-		motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL*2);
+		motorBackLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+		motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
 
 
 		//Set power but do not set or change the motor state (stop, forward, reverse)
@@ -106,8 +106,17 @@ public class TestDCMotors {
 		motorBackLeft.setPower(DEFAULT_POWER_LEVEL);
 		motorBackRight.setPower(DEFAULT_POWER_LEVEL);
 
+
+		System.out.println("Make a left turn ...");
+		motorFrontLeft.reverse();
+		motorBackRight.forward();
+		motorFrontRight.forward();
+		motorBackLeft.reverse();
+		motorHat.sleep(6000);
+
+	};
 		//move forward at power level specified above
-		System.out.println("Move foward for 2 sec");
+		/*System.out.println("Move foward for 2 sec");
 		motorFrontLeft.forward();
 		motorFrontRight.forward();
 		motorBackLeft.forward();
