@@ -107,12 +107,16 @@ public class TestDCMotors {
 		motorBackRight.setPower(DEFAULT_POWER_LEVEL);
 
 
-		System.out.println("Make a left turn ...");
-		motorFrontLeft.reverse();
-		motorBackRight.forward();
+		//move forward at power level specified above
+		System.out.println("Move foward for 2 sec");
+		motorFrontLeft.forward();
 		motorFrontRight.forward();
-		motorBackLeft.reverse();
+		motorBackLeft.forward();
+		motorBackRight.forward();
 		motorHat.sleep(6000);
+
+
+
 
 
 		//move forward at power level specified above
