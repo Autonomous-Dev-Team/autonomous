@@ -37,7 +37,7 @@ public class MotorController {
     static private float CARPET_SPEED = 1.15f;
 
     //One degree turn for terrain
-    static double BASETIME_FOR_ONE_DEGREE = 13.3;
+    static double BASETIME_FOR_ONE_DEGREE = 6.5;
 
     static double terrain_carpet = 13.3*3;
     static private float LOW = DEFAULT_SPEED/2;
@@ -204,13 +204,8 @@ public class MotorController {
         double timeToTurn = degrees * BASETIME_FOR_ONE_DEGREE ;
             if (this.TERRAIN_TYPE.equalsIgnoreCase("carpet") )
                 timeToTurn = timeToTurn *3;
-        // Read the degrees
-        // determine time to run (hint multiply the constant
-        // turn on for time
-        // time elapsed turn off
-        //stop all motors
-        initialize();
-        motorFrontLeft.setBrakeMode(true);
+
+            motorFrontLeft.setBrakeMode(true);
         motorFrontLeft.stop();
 
         motorFrontRight.setBrakeMode(true);
