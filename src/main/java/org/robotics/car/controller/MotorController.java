@@ -158,6 +158,12 @@ public class MotorController {
                 this.motorFrontRight.speed(DEFAULT_SPEED * CARPET_SPEED);
                 this.motorBackLeft.speed(DEFAULT_SPEED * CARPET_SPEED);
                 this.motorBackRight.speed(DEFAULT_SPEED * CARPET_SPEED);
+            } else {
+                // Tile is default
+                this.motorFrontLeft.speed( DEFAULT_SPEED);
+                this.motorFrontRight.speed(DEFAULT_SPEED );
+                this.motorBackLeft.speed(DEFAULT_SPEED);
+                this.motorBackRight.speed(DEFAULT_SPEED);
             }
 
         // All 4 motors forward
@@ -238,6 +244,12 @@ public class MotorController {
             this.motorFrontRight.speed(DEFAULT_SPEED * CARPET_SPEED);
             this.motorBackLeft.speed(DEFAULT_SPEED * CARPET_SPEED);
             this.motorBackRight.speed(DEFAULT_SPEED * CARPET_SPEED);
+        } else {
+            // Tile is default
+            this.motorFrontLeft.speed( DEFAULT_SPEED);
+            this.motorFrontRight.speed(DEFAULT_SPEED );
+            this.motorBackLeft.speed(DEFAULT_SPEED);
+            this.motorBackRight.speed(DEFAULT_SPEED);
         }
 
 
