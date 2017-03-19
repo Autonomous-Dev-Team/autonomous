@@ -48,6 +48,9 @@ public class TestMotorController {
         System.out.println("Turn right for 180 degrees ..");
         motorController.right(180);
 
+        motorController.stop();
+
+
     }
 
 }
