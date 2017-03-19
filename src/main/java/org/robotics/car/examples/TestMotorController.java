@@ -30,6 +30,7 @@ public class TestMotorController {
 
     public static void main(String[] args) throws InterruptedException {
 
+
         motorController = new MotorController("carpet", "M1", "M2", "M3", "M4");
 
         System.out.println("Move forward for a second ..");
@@ -49,6 +50,8 @@ public class TestMotorController {
         motorController.right(180);
 
         motorController.stop();
+
+        motorController.uninitialize();
 
 
     }

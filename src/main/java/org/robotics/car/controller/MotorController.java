@@ -37,7 +37,7 @@ public class MotorController {
     static private float CARPET_SPEED = 1.15f;
 
     //One degree turn for terrain
-    static double BASETIME_FOR_ONE_DEGREE = 7.5;
+    static double BASETIME_FOR_ONE_DEGREE = 7.2;
 
     static double terrain_carpet = 13.3*3;
     static private float LOW = DEFAULT_SPEED/2;
@@ -77,6 +77,10 @@ public class MotorController {
 
         this.TERRAIN_TYPE = terrain_floor;
 
+    }
+
+    public void uninitialize() {
+        motorHat.stopAll();
     }
 
     public boolean initialize() {
