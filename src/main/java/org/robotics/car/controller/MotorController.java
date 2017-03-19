@@ -35,10 +35,10 @@ public class MotorController {
     static private float DEFAULT_SPEED = 30.0f;
 
     static private float CARPET_SPEED = 1.5f;
-    static private float CARPET_TURN = 4.0f;
+    static private float CARPET_TURN = 5.2f;
 
     //One degree turn for terrain
-    static double BASETIME_FOR_ONE_DEGREE = 6.0;
+    static double BASETIME_FOR_ONE_DEGREE = 2.8;
 
     static double terrain_carpet = 13.3*3;
     static private float LOW = DEFAULT_SPEED/2;
