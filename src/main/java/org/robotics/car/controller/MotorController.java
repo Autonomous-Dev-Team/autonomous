@@ -35,6 +35,7 @@ public class MotorController {
     static private float DEFAULT_SPEED = 30.0f;
 
     static private float CARPET_SPEED = 1.5f;
+    static private float CARPET_TURN = 4.0f;
 
     //One degree turn for terrain
     static double BASETIME_FOR_ONE_DEGREE = 6.0;
@@ -44,7 +45,7 @@ public class MotorController {
     static private float MEDIUM = DEFAULT_SPEED;
     static private float HIGH = 30.0f;
 
-    private String TERRAIN_TYPE = "";
+    private String terrainType = "tile";
 
     final int motorHATAddress = 0X60;
     private AdafruitMotorHat motorHat = null;
@@ -75,7 +76,7 @@ public class MotorController {
         this.motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
 
 
-        this.TERRAIN_TYPE = terrain_floor;
+        this.terrainType = terrain_floor;
 
     }
 
@@ -153,7 +154,7 @@ public class MotorController {
 
     public boolean forward() {
 
-            if (this.TERRAIN_TYPE.equalsIgnoreCase("carpet") ){
+            if (this.terrainType.compareToIgnoreCase("carpet") == 0 ){
                 this.motorFrontLeft.speed( DEFAULT_SPEED * CARPET_SPEED);
                 this.motorFrontRight.speed(DEFAULT_SPEED * CARPET_SPEED);
                 this.motorBackLeft.speed(DEFAULT_SPEED * CARPET_SPEED);
@@ -180,9 +181,8 @@ public class MotorController {
     public boolean right(int degrees) {
         double timeToTurn = degrees * BASETIME_FOR_ONE_DEGREE ;
 
-        if (this.TERRAIN_TYPE.equalsIgnoreCase("carpet") )
-            timeToTurn = timeToTurn *3;
-
+        if (this.terrainType.compareToIgnoreCase("carpet") == 0 )
+            timeToTurn = timeToTurn * CARPET_TURN;
 
         // Stop all motors
         motorFrontLeft.setBrakeMode(true);
@@ -212,8 +212,8 @@ public class MotorController {
 
     public boolean left(int degrees) {
         double timeToTurn = degrees * BASETIME_FOR_ONE_DEGREE ;
-            if (this.TERRAIN_TYPE.equalsIgnoreCase("carpet") )
-                timeToTurn = timeToTurn *3;
+            if (this.terrainType.compareToIgnoreCase("carpet") == 0 )
+                timeToTurn = timeToTurn * CARPET_TURN;
 
             motorFrontLeft.setBrakeMode(true);
         motorFrontLeft.stop();
@@ -239,7 +239,7 @@ public class MotorController {
     }
 
     public boolean backward() {
-        if (this.TERRAIN_TYPE.equalsIgnoreCase("carpet") ){
+        if (this.terrainType.compareToIgnoreCase("carpet") == 0){
             this.motorFrontLeft.speed( DEFAULT_SPEED * CARPET_SPEED);
             this.motorFrontRight.speed(DEFAULT_SPEED * CARPET_SPEED);
             this.motorBackLeft.speed(DEFAULT_SPEED * CARPET_SPEED);
