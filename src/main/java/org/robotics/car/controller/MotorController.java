@@ -30,14 +30,22 @@ public class MotorController {
 
     // Constant
     // private double TIME_FOR_ONE_DEGREE_TURN = 16.667; //milli seconds per degree
-    private double TIME_FOR_ONE_DEGREE_TURN = 15; //milli seconds per degree
 
     static private float DEFAULT_POWER_LEVEL = 30.0f;
-    static private float DEFAULT_SPEED = 20.0f;
+    static private float DEFAULT_SPEED = 30.0f;
 
+    static private float CARPET_SPEED = 1.5f;
+    static private float CARPET_TURN = 5.2f;
+
+    //One degree turn for terrain
+    static double BASETIME_FOR_ONE_DEGREE = 2.8;
+
+    static double terrain_carpet = 13.3*3;
     static private float LOW = DEFAULT_SPEED/2;
     static private float MEDIUM = DEFAULT_SPEED;
     static private float HIGH = 30.0f;
+
+    private String terrainType = "tile";
 
     final int motorHATAddress = 0X60;
     private AdafruitMotorHat motorHat = null;
@@ -49,8 +57,31 @@ public class MotorController {
 
     private AtomicBoolean isSystemInitialized = new AtomicBoolean(false);
 
-    public MotorController() {
+    // Class constructor called when calss is initialized
+    public MotorController(String terrain_floor, String frontLeftMotor, String frontRightMotor, String backLeftMotor,String backRightMotor  ) {
 
+        // Initialize Hat
+        motorHat = new AdafruitMotorHat(this.motorHATAddress);
+
+
+        this.motorBackRight = motorHat.getDcMotor(backRightMotor);
+        this.motorBackLeft = motorHat.getDcMotor(backLeftMotor);
+        this.motorFrontLeft = motorHat.getDcMotor(frontLeftMotor);
+        this.motorFrontRight = motorHat.getDcMotor(frontRightMotor);
+
+        // Set default power range
+        this.motorFrontLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorFrontRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorBackLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+
+
+        this.terrainType = terrain_floor;
+
+    }
+
+    public void uninitialize() {
+        motorHat.stopAll();
     }
 
     public boolean initialize() {
@@ -75,16 +106,16 @@ public class MotorController {
             });
 
             // Initialize motors
-            this.motorBackRight = motorHat.getDcMotor("M1");
+            this.motorBackRight = motorHat.getDcMotor("M4");
             if (motorBackRight != null)
                 System.out.println("Back Right Motor state " + this.motorBackRight.getState().toString());
             else
                 System.out.println("Back Right Motor not initialized ...");
 
 
-            this.motorBackLeft = motorHat.getDcMotor("M2");
-            this.motorFrontLeft = motorHat.getDcMotor("M3");
-            this.motorFrontRight = motorHat.getDcMotor("M4");
+            this.motorBackLeft = motorHat.getDcMotor("M3");
+            this.motorFrontLeft = motorHat.getDcMotor("M1");
+            this.motorFrontRight = motorHat.getDcMotor("M2");
             // Set default power range
             this.motorFrontLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
             this.motorFrontRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
@@ -121,49 +152,20 @@ public class MotorController {
         return true;
     }
 
-    public boolean forward(String speed) {
+    public boolean forward() {
 
-        initialize();
-        // Initialization
-        float powerLevel = 0.0f;
-
-  /*      // Stop all motors and break mode
-        motorFrontLeft.setBrakeMode(true);
-        this.motorFrontLeft.stop();
-
-        motorFrontRight.setBrakeMode(true);
-        this.motorFrontRight.stop();
-
-        motorBackLeft.setBrakeMode(true);
-        this.motorBackLeft.stop();
-
-        motorBackRight.setBrakeMode(true);
-        this.motorBackRight.stop();
-
-        // Set power level (speed) for all 4 motors
-        if (speed.equalsIgnoreCase("low"))
-            powerLevel = this.LOW;
-        else if (speed.equalsIgnoreCase("high"))
-            powerLevel = this.HIGH;
-        else
-            powerLevel= MEDIUM;
-
-    //    System.out.println("Power level forward: " + powerLevel);
-
-        this.motorFrontLeft.setBrakeMode(false);
-        this.motorFrontRight.setBrakeMode(false);
-        this.motorBackLeft.setBrakeMode(false);
-        this.motorBackRight.setBrakeMode(false);*/
-
-
-        /*this.motorFrontLeft.setPowerRange(powerLevel);
-        this.motorFrontRight.setPowerRange(powerLevel);
-        this.motorBackLeft.setPowerRange(powerLevel);
-        this.motorBackRight.setPowerRange(powerLevel);*/
-        this.motorFrontLeft.speed(DEFAULT_SPEED);
-        this.motorFrontRight.speed(DEFAULT_SPEED);
-        this.motorBackLeft.speed(DEFAULT_SPEED);
-        this.motorBackRight.speed(DEFAULT_SPEED);
+            if (this.terrainType.compareToIgnoreCase("carpet") == 0 ){
+                this.motorFrontLeft.speed( DEFAULT_SPEED * CARPET_SPEED);
+                this.motorFrontRight.speed(DEFAULT_SPEED * CARPET_SPEED);
+                this.motorBackLeft.speed(DEFAULT_SPEED * CARPET_SPEED);
+                this.motorBackRight.speed(DEFAULT_SPEED * CARPET_SPEED);
+            } else {
+                // Tile is default
+                this.motorFrontLeft.speed( DEFAULT_SPEED);
+                this.motorFrontRight.speed(DEFAULT_SPEED );
+                this.motorBackLeft.speed(DEFAULT_SPEED);
+                this.motorBackRight.speed(DEFAULT_SPEED);
+            }
 
         // All 4 motors forward
       //  System.out.println("Start motors forward");
@@ -172,15 +174,15 @@ public class MotorController {
         this.motorBackLeft.forward();
         this.motorBackRight.forward();
 
-        //this.motorHat.sleep(1000);
-
-        //System.out.println("Done running forward");
 
         return true;
     }
 
-    public boolean left(int degrees) {
-        long timeToRun = (long)(TIME_FOR_ONE_DEGREE_TURN * degrees);
+    public boolean right(int degrees) {
+        double timeToTurn = degrees * BASETIME_FOR_ONE_DEGREE ;
+
+        if (this.terrainType.compareToIgnoreCase("carpet") == 0 )
+            timeToTurn = timeToTurn * CARPET_TURN;
 
         // Stop all motors
         motorFrontLeft.setBrakeMode(true);
@@ -196,42 +198,24 @@ public class MotorController {
         motorBackRight.stop();
 
 
-        // Set default power mode for tuen
-        /*motorFrontLeft.setPowerRange(HIGH);
-        motorFrontRight.setPowerRange(HIGH);
-        motorBackLeft.setPowerRange(HIGH);
-        motorBackRight.setPowerRange(HIGH);*/
-
-        this.motorFrontLeft.speed(HIGH);
-        this.motorFrontRight.speed(HIGH);
-        this.motorBackLeft.speed(HIGH);
-        this.motorBackRight.speed(HIGH);
-
 
         this.motorFrontRight.reverse();
         this.motorFrontLeft.forward();
         this.motorBackRight.reverse();
         this.motorBackLeft.forward();
 
-        motorHat.sleep(timeToRun);
-
-        this.motorFrontLeft.speed(DEFAULT_SPEED);
-        this.motorFrontRight.speed(DEFAULT_SPEED);
-        this.motorBackLeft.speed(DEFAULT_SPEED);
-        this.motorBackRight.speed(DEFAULT_SPEED);
+        motorHat.sleep((long)timeToTurn);
 
 
         return true;
     }
 
-    public boolean right(int degrees) {
-        // Read the degrees
-        // determine time to run (hint multiply the constant
-        // turn on for time
-        // time elapsed turn off
-        //stop all motors
-        initialize();
-        motorFrontLeft.setBrakeMode(true);
+    public boolean left(int degrees) {
+        double timeToTurn = degrees * BASETIME_FOR_ONE_DEGREE ;
+            if (this.terrainType.compareToIgnoreCase("carpet") == 0 )
+                timeToTurn = timeToTurn * CARPET_TURN;
+
+            motorFrontLeft.setBrakeMode(true);
         motorFrontLeft.stop();
 
         motorFrontRight.setBrakeMode(true);
@@ -243,40 +227,32 @@ public class MotorController {
         motorBackRight.setBrakeMode(true);
         motorBackRight.stop();
 
-        //set all motor speeds
-        /*motorFrontLeft.setPowerRange(HIGH);
-        motorFrontRight.setPowerRange(HIGH);
-        motorBackLeft.setPowerRange(HIGH);
-        motorBackRight.setPowerRange(HIGH);*/
 
-        this.motorFrontLeft.speed(HIGH);
-        this.motorFrontRight.speed(HIGH);
-        this.motorBackLeft.speed(HIGH);
-        this.motorBackRight.speed(HIGH);
-
-
-        long timeToRun = (long)(TIME_FOR_ONE_DEGREE_TURN * degrees);
         this.motorFrontRight.forward();
         this.motorBackLeft.reverse();
         this.motorFrontLeft.reverse();
         this.motorBackRight.forward();
 
-        motorHat.sleep(timeToRun);
-
-        this.motorFrontLeft.speed(DEFAULT_SPEED);
-        this.motorFrontRight.speed(DEFAULT_SPEED);
-        this.motorBackLeft.speed(DEFAULT_SPEED);
-        this.motorBackRight.speed(DEFAULT_SPEED);
-
+        motorHat.sleep((long)timeToTurn);
 
         return true;
     }
 
-    public boolean backward(String speed) {
-        // Initialization
-        float powerLevel = 0.0f;
+    public boolean backward() {
+        if (this.terrainType.compareToIgnoreCase("carpet") == 0){
+            this.motorFrontLeft.speed( DEFAULT_SPEED * CARPET_SPEED);
+            this.motorFrontRight.speed(DEFAULT_SPEED * CARPET_SPEED);
+            this.motorBackLeft.speed(DEFAULT_SPEED * CARPET_SPEED);
+            this.motorBackRight.speed(DEFAULT_SPEED * CARPET_SPEED);
+        } else {
+            // Tile is default
+            this.motorFrontLeft.speed( DEFAULT_SPEED);
+            this.motorFrontRight.speed(DEFAULT_SPEED );
+            this.motorBackLeft.speed(DEFAULT_SPEED);
+            this.motorBackRight.speed(DEFAULT_SPEED);
+        }
 
-        initialize();
+
         motorFrontLeft.setBrakeMode(true);
         motorFrontLeft.stop();
 
@@ -290,31 +266,11 @@ public class MotorController {
         motorBackRight.stop();
 
         // Set power level (speed) for all 4 motors
-
-        // Set power level (speed) for all 4 motors
-        if (speed.equalsIgnoreCase("low"))
-            powerLevel = this.LOW;
-        else if (speed.equalsIgnoreCase("high"))
-            powerLevel = this.HIGH;
-        else
-            powerLevel= MEDIUM;
-
-        /*motorFrontLeft.setPowerRange(powerLevel);
-        motorFrontRight.setPowerRange(powerLevel);
-        motorBackLeft.setPowerRange(powerLevel);
-        motorBackRight.setPowerRange(powerLevel);*/
-
-        this.motorFrontLeft.speed(DEFAULT_SPEED);
-        this.motorFrontRight.speed(DEFAULT_SPEED);
-        this.motorBackLeft.speed(DEFAULT_SPEED);
-        this.motorBackRight.speed(DEFAULT_SPEED);
-
         this.motorFrontLeft.reverse();
         this.motorFrontRight.reverse();
         this.motorBackLeft.reverse();
         this.motorBackRight.reverse();
 
-        this.motorHat.sleep(1000);
         return true;
     }
 }
