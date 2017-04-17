@@ -68,30 +68,36 @@ public class CarEngine {
     //
     public static void main(String[] args) throws InterruptedException {
 
+        // ust for testing
+        String fronLeftMotor = "M1";
+
+
+        String terrain = "concrete";
+
+
         // Initialize Sensors, motor controller
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and GPIO Pin # 5 for TRIGGER
-        UltraSonicHCSR04 frontRightSensor = new UltraSonicHCSR04("Front sensor", 0, 0);
-        UltraSonicHCSR04 frontMiddleSensor = new UltraSonicHCSR04("Front sensor", 5, 6);
-        UltraSonicHCSR04 frontLeftSensor = new UltraSonicHCSR04("Front sensor", 0, 0);
-
-        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 0, 2);
-        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 4, 3);
+        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 16, 6);
+        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 4, 17);
+        UltraSonicHCSR04 frontright = new UltraSonicHCSR04("Front Right sensor", 24, 25);
+        UltraSonicHCSR04 frontmiddle = new UltraSonicHCSR04("Front Middle sensor", 22, 23);
+        UltraSonicHCSR04 frontleft = new UltraSonicHCSR04("Front Left sensor", 18, 27);
 
         // Start measurement for each sensor
         try {
-            frontRightSensor.start();
-            Thread.sleep(163);
-            frontLeftSensor.start();
-            Thread.sleep(163);
-            frontMiddleSensor.start();
+            rightSensor.start();
             Thread.sleep(163);
             leftSensor.start();
             Thread.sleep(157);
-            rightSensor.start();
+            frontright.start();
             Thread.sleep(149);
+            frontmiddle.start();
+            Thread.sleep(140);
+            frontleft.start();
+            Thread.sleep(131);
 
-            // Make sure first measurement arrived
-            while (rightSensor.getDistance() == 0) {
+
+            while (frontright.getDistance() == 0) {
                 Thread.sleep(350);
             }
         } catch (InterruptedException ie) {
@@ -103,7 +109,7 @@ public class CarEngine {
 
 
         // Create Motor controller
-        motorController = new MotorController();
+        motorController = new MotorController(terrain, "M1","M2","M3","M4");
 
         // local variables
         float frontRightMeasuredDistance = 0;
@@ -127,9 +133,9 @@ public class CarEngine {
             // Run forever
             while (true) {
                 // Read all the measurements
-                frontRightMeasuredDistance  = frontRightSensor.getDistance();
-                frontLeftMeasuredDistance   = frontLeftSensor.getDistance();
-                frontMiddleMeasuredDistance = frontMiddleSensor.getDistance();
+                frontRightMeasuredDistance  = frontright.getDistance();
+                frontLeftMeasuredDistance   = frontleft.getDistance();
+                frontMiddleMeasuredDistance = frontmiddle.getDistance();
                 leftmeasuredDistance        = leftSensor.getDistance();
                 rightmeasuredDistance       = rightSensor.getDistance();
 
@@ -156,9 +162,9 @@ public class CarEngine {
         motorController.stop();
 
         // Stop sensors
-        frontRightSensor.shutdown();
-        frontMiddleSensor.shutdown();
-        frontLeftSensor.shutdown();
+        frontright.shutdown();
+        frontmiddle.shutdown();
+        frontleft.shutdown();
         leftSensor.shutdown();
         rightSensor.shutdown();
 
