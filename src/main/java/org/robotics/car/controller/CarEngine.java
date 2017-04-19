@@ -333,13 +333,40 @@ public class CarEngine {
                         && (rightMeasuredDistance < MINIMAL_DISTANCE)) {
                     motorController.left(180);
                     System.out.println("FrontMiddle, FrontRight, Left, Right blocked: turn left 180 degrees");
+                } else if ((frontLeftMeasuredDistance < MINIMAL_DISTANCE)
+                        && (frontMiddleMeasuredDistance > MINIMAL_DISTANCE)
+                        && (frontRightMeasuredDistance < MINIMAL_DISTANCE)
+                        && (leftMeasuredDistance > MINIMAL_DISTANCE)
+                        && (rightMeasuredDistance < MINIMAL_DISTANCE)) {
+                    motorController.left(110);
+                    System.out.println("FrontLeft, FrontRight, Left, blocked: turn left 110 degrees");
+                } else if ((frontLeftMeasuredDistance < MINIMAL_DISTANCE)
+                        && (frontMiddleMeasuredDistance < MINIMAL_DISTANCE)
+                        && (frontRightMeasuredDistance > MINIMAL_DISTANCE)
+                        && (leftMeasuredDistance < MINIMAL_DISTANCE)
+                        && (rightMeasuredDistance > MINIMAL_DISTANCE)) {
+                    motorController.right(110);
+                    System.out.println("FrontLeft, FrontMiddle, Right blocked: turn left 180 degrees");
+                } else if ((frontLeftMeasuredDistance > MINIMAL_DISTANCE)
+                        && (frontMiddleMeasuredDistance < MINIMAL_DISTANCE)
+                        && (frontRightMeasuredDistance > MINIMAL_DISTANCE)
+                        && (leftMeasuredDistance < MINIMAL_DISTANCE)
+                        && (rightMeasuredDistance > MINIMAL_DISTANCE)) {
+                    motorController.right(45);
+                    System.out.println("Front Middle, Left blocked, turn right 45 degrees");
+                } else if ((frontLeftMeasuredDistance > MINIMAL_DISTANCE)
+                        && (frontMiddleMeasuredDistance > MINIMAL_DISTANCE)
+                        && (frontRightMeasuredDistance < MINIMAL_DISTANCE)
+                        && (leftMeasuredDistance > MINIMAL_DISTANCE)
+                        && (rightMeasuredDistance < MINIMAL_DISTANCE)) {
+                    motorController.left(45);
+                    System.out.println("Right Front Middle, Right blocked, turn right 45 degrees");
+
+
+                    System.out.println("Autonomous: Motor and directions updated -- get to next");
                 }
 
-
-                System.out.println("Autonomous: Motor and directions updated -- get to next");
             }
-
-
         } catch (Exception ex)
 
         {
