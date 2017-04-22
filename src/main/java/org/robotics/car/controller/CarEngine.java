@@ -57,10 +57,10 @@ public class CarEngine {
     static MotorController motorController = null;
 
     // LED instances
-    static final GpioPinDigitalOutput ledGreen = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_27, "CarEngine", PinState.LOW);
+    /* static final GpioPinDigitalOutput ledGreen = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_27, "CarEngine", PinState.LOW);
     static final GpioPinDigitalOutput ledBlue = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_28, "CarForward", PinState.LOW);
     static final GpioPinDigitalOutput ledYellow = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_29, "CarReverse", PinState.LOW);
-
+*/
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Methods
     //
@@ -68,20 +68,39 @@ public class CarEngine {
     //
     public static void main(String[] args) throws InterruptedException {
 
+        String terrain = "concrete";
+
+        // Create Motor controller
+        motorController = new MotorController(terrain, "M1", "M2", "M3", "M4");
+
+                 /*
+                 * Because the Adafruit motor HAT uses PWMs that pulse independently of
+                 * the Raspberry Pi the motors will keep running at its current direction
+                 * and power levels if the program abnormally terminates.
+                 * A shutdown hook like the one in this example is useful to stop the
+                 * motors when the program is abnormally interrupted.
+                 */
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                System.out.println("Turn off all motors");
+                motorController.motorHat.stopAll();
+            }
+        });
+
         // ust for testing
         String fronLeftMotor = "M1";
 
 
-        String terrain = "concrete";
+
 
 
         // Initialize Sensors, motor controller
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and GPIO Pin # 5 for TRIGGER
-        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 16, 6);
-        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 4, 17);
-        UltraSonicHCSR04 frontright = new UltraSonicHCSR04("Front Right sensor", 24, 25);
-        UltraSonicHCSR04 frontmiddle = new UltraSonicHCSR04("Front Middle sensor", 22, 23);
-        UltraSonicHCSR04 frontleft = new UltraSonicHCSR04("Front Left sensor", 18, 27);
+        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 27, 24);
+        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 7, 0);
+        UltraSonicHCSR04 frontright = new UltraSonicHCSR04("Front Right sensor", 5, 6);
+        UltraSonicHCSR04 frontmiddle = new UltraSonicHCSR04("Front Middle sensor", 3, 4);
+        UltraSonicHCSR04 frontleft = new UltraSonicHCSR04("Front Left sensor", 1, 2);
 
         // Start measurement for each sensor
         try {
@@ -104,12 +123,7 @@ public class CarEngine {
             System.out.println("Sleep interruppted");
         }
 
-
         System.out.println("Sensors initialized and ready to measure distances...");
-
-
-        // Create Motor controller
-        motorController = new MotorController(terrain, "M1", "M2", "M3", "M4");
 
         // local variables
         float frontRightMeasuredDistance = 0;
@@ -121,11 +135,11 @@ public class CarEngine {
         System.out.println("Starting car Engine vrooom...");
 
         // Car ENgine started turn on Green LED
-        ledGreen.high();
+//        ledGreen.high();
 
         // Car is not moving turn off other LED's
-        ledBlue.low();
-        ledYellow.low();
+  //      ledBlue.low();
+    //    ledYellow.low();
 
 
         System.out.println("Autonomous is Online and Ready to Go");
@@ -138,6 +152,13 @@ public class CarEngine {
                 frontMiddleMeasuredDistance = frontmiddle.getDistance();
                 leftMeasuredDistance = leftSensor.getDistance();
                 rightMeasuredDistance = rightSensor.getDistance();
+                
+                System.out.println("Front Right Sensor: " + frontRightMeasuredDistance);
+                System.out.println("Front Middle Sensor:" + frontMiddleMeasuredDistance);
+                System.out.println("Front Left Sensor:  " + frontLeftMeasuredDistance);
+                System.out.println("Left Sensor:" + leftMeasuredDistance);
+                System.out.println("Right Sensor:  " + rightMeasuredDistance);
+                
 
                 System.out.println("Autonomous : Read distance now decides what to do ...");
                 //Logic table
@@ -374,7 +395,7 @@ public class CarEngine {
         }
 
         // Stop car
-        motorController.stop();
+        motorController.motorHat.stopAll();
 
         // Stop sensors
         frontright.shutdown();

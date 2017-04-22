@@ -48,7 +48,7 @@ public class MotorController {
     private String terrainType = "tile";
 
     final int motorHATAddress = 0X60;
-    private AdafruitMotorHat motorHat = null;
+    public AdafruitMotorHat motorHat = null;
 
     private static AdafruitDcMotor motorBackRight  = null;
     private static AdafruitDcMotor motorBackLeft   = null;
