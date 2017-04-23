@@ -27,7 +27,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
 
-//import org.robotics.car.exception.TimeoutException;
+import org.robotics.car.exception.TimeoutException;
 // Classes developed to use the different sensors
 import org.robotics.car.sensors.UltraSonicHCSR04;
 
@@ -45,7 +45,7 @@ public class CarEngine {
     static final int DEFAULT_LOOP_TIME = 300; // 1 sec
 
     // Minimal distance between sensor and object to do an action
-    static float MINIMAL_DISTANCE = 10;
+    static float MINIMAL_DISTANCE = 4;
     static int SLEEPING_TIME_BETWEEN_LOOP = 500; // in ms
     static int SAMPLESIZE = 3; //samplesize for average calculation
     static int DEGREES_TO_TURN = 90;
@@ -77,11 +77,11 @@ public class CarEngine {
 
         // Initialize Sensors, motor controller
         // Create an instance of the Sonic Sensor using GPIO Pin #4 for ECHO signal and GPIO Pin # 5 for TRIGGER
-        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 27, 24);
-        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 7, 0);
-        UltraSonicHCSR04 frontright = new UltraSonicHCSR04("Front Right sensor", 5, 6);
-        UltraSonicHCSR04 frontmiddle = new UltraSonicHCSR04("Front Middle sensor", 3, 4);
-        UltraSonicHCSR04 frontleft = new UltraSonicHCSR04("Front Left sensor", 1, 2);
+        UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 16, 6);
+        UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 4, 17);
+        UltraSonicHCSR04 frontright = new UltraSonicHCSR04("Front Right sensor", 24, 25);
+        UltraSonicHCSR04 frontmiddle = new UltraSonicHCSR04("Front Middle sensor", 22, 23);
+        UltraSonicHCSR04 frontleft = new UltraSonicHCSR04("Front Left sensor", 18, 27);
 
         // Start measurement for each sensor
         try {
@@ -123,7 +123,7 @@ public class CarEngine {
         // Car ENgine started turn on Green LED
         ledGreen.high();
 
-        // Car is not moving turn off other LED's0=/=////
+        // Car is not moving turn off other LED's
         ledBlue.low();
         ledYellow.low();
 
@@ -227,7 +227,7 @@ public class CarEngine {
                         && (frontRightMeasuredDistance > MINIMAL_DISTANCE)
                         && (leftMeasuredDistance > MINIMAL_DISTANCE)
                         && (rightMeasuredDistance < MINIMAL_DISTANCE)) {
-                    motorController.right(20);
+                    motorController.left(20);
                     System.out.println("FrontLeft and Right blocked, turn left 20 degrees");
 
                 } else if ((frontLeftMeasuredDistance < MINIMAL_DISTANCE)
@@ -251,7 +251,7 @@ public class CarEngine {
                         && (frontRightMeasuredDistance < MINIMAL_DISTANCE)
                         && (leftMeasuredDistance > MINIMAL_DISTANCE)
                         && (rightMeasuredDistance > MINIMAL_DISTANCE)) {
-                    motorController.right(90);
+                    motorController.left(90);
                     System.out.println("FrontLeft, FrontMiddle, FrontRight blocked, turn left 90 degrees");
 
                 } else if ((frontLeftMeasuredDistance < MINIMAL_DISTANCE)

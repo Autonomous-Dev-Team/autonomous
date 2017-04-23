@@ -266,7 +266,8 @@ public class UltraSonicHCSR04 extends Sensor {
             double duration = (end - start) / 1000;
 
             if (countdown <= 0) {
-                throw new TimeoutException("Timeout waiting for signal start");
+   //             throw new TimeoutException("Timeout waiting for signal start");
+				duration =0;
             }
 
             /**
@@ -279,7 +280,7 @@ public class UltraSonicHCSR04 extends Sensor {
 
 
             //Reset counter
-            countdown = TIMEOUT*2;
+            countdown = TIMEOUT*5;
             start = System.nanoTime();
 
             // Measure result pulse
@@ -295,9 +296,9 @@ public class UltraSonicHCSR04 extends Sensor {
             double distPulse = ((end - start) / 1000.0) * 0.017;
 
             // Filter distance range
-            if (distPulse > 400 || distPulse < 2) {
-                throw new TimeoutException("Distance out of Range");
-            }
+ //           if (distPulse > 400 || distPulse < 2) {
+ //               throw new TimeoutException("Distance out of Range");
+ //           }
 
             return distPulse;
 
