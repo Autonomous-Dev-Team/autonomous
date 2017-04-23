@@ -44,8 +44,8 @@ public class CarEngine {
     // Constants
     static final int DEFAULT_LOOP_TIME = 300; // 1 sec
 
-    // Minimal distance between sensor and object to do an action
-    static float MINIMAL_DISTANCE = 4;
+    // Minimal distance between sensor and object in cm to do an action
+    static float MINIMAL_DISTANCE = 10;
     static int SLEEPING_TIME_BETWEEN_LOOP = 500; // in ms
     static int SAMPLESIZE = 3; //samplesize for average calculation
     static int DEGREES_TO_TURN = 90;
@@ -227,7 +227,7 @@ public class CarEngine {
                         && (frontRightMeasuredDistance > MINIMAL_DISTANCE)
                         && (leftMeasuredDistance > MINIMAL_DISTANCE)
                         && (rightMeasuredDistance < MINIMAL_DISTANCE)) {
-                    motorController.left(20);
+                    motorController.right(20);
                     System.out.println("FrontLeft and Right blocked, turn left 20 degrees");
 
                 } else if ((frontLeftMeasuredDistance < MINIMAL_DISTANCE)
