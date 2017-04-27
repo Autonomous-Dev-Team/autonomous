@@ -45,6 +45,7 @@ public class CarEngine {
     static final int DEFAULT_LOOP_TIME = 300; // 1 sec
 
     // Minimal distance between sensor and object in cm to do an action
+    static float MINIMAL_DISTANCE_FOR_SIDE_SENSORS = 3;
     static float MINIMAL_DISTANCE = 10;
     static int SLEEPING_TIME_BETWEEN_LOOP = 500; // in ms
     static int SAMPLESIZE = 3; //samplesize for average calculation
@@ -198,18 +199,18 @@ public class CarEngine {
                 } else if ((frontLeftMeasuredDistance > MINIMAL_DISTANCE)
                         && (frontMiddleMeasuredDistance > MINIMAL_DISTANCE)
                         && (frontRightMeasuredDistance > MINIMAL_DISTANCE)
-                        && (leftMeasuredDistance < MINIMAL_DISTANCE)
+                        && (leftMeasuredDistance < MINIMAL_DISTANCE_FOR_SIDE_SENSORS)
                         && (rightMeasuredDistance > MINIMAL_DISTANCE)) {
-                    motorController.forward();
-                    System.out.println("Left blocked, move forward");
+                    motorController.right(20);
+                    System.out.println("Left blocked, turn right 20 degrees");
 
                 } else if ((frontLeftMeasuredDistance > MINIMAL_DISTANCE)
                         && (frontMiddleMeasuredDistance > MINIMAL_DISTANCE)
                         && (frontRightMeasuredDistance > MINIMAL_DISTANCE)
                         && (leftMeasuredDistance > MINIMAL_DISTANCE)
-                        && (rightMeasuredDistance < MINIMAL_DISTANCE)) {
-                    motorController.forward();
-                    System.out.println("Right blocked, move forward");
+                        && (rightMeasuredDistance < MINIMAL_DISTANCE_FOR_SIDE_SENSORS)) {
+                    motorController.left(20);
+                    System.out.println("Right blocked, tuen left 20 degrees");
 
                 } else if ((frontLeftMeasuredDistance < MINIMAL_DISTANCE)
                         && (frontMiddleMeasuredDistance < MINIMAL_DISTANCE)
@@ -264,8 +265,8 @@ public class CarEngine {
                         && (frontRightMeasuredDistance < MINIMAL_DISTANCE)
                         && (leftMeasuredDistance < MINIMAL_DISTANCE)
                         && (rightMeasuredDistance < MINIMAL_DISTANCE)) {
-                    motorController.left(180);
-                    System.out.println("All blocked, turn left 180 degrees");
+                    motorController.backward();
+                    System.out.println("All blocked, go backwards");
 
                 } else if ((frontLeftMeasuredDistance < MINIMAL_DISTANCE)
                         && (frontMiddleMeasuredDistance < MINIMAL_DISTANCE)
@@ -280,8 +281,8 @@ public class CarEngine {
                         && (frontRightMeasuredDistance > MINIMAL_DISTANCE)
                         && (leftMeasuredDistance < MINIMAL_DISTANCE)
                         && (rightMeasuredDistance < MINIMAL_DISTANCE)) {
-                    motorController.left(180);
-                    System.out.println("FrontLeft, FrontMiddle, Left, and Right blocked, turn left 180 degrees");
+                    motorController.backward();
+                    System.out.println("FrontLeft, FrontMiddle, Left, and Right blocked, go backwards");
 
                 } else if ((frontLeftMeasuredDistance < MINIMAL_DISTANCE)
                         && (frontMiddleMeasuredDistance < MINIMAL_DISTANCE)
