@@ -107,14 +107,18 @@ public class CarEngine {
 
         // Start measurement for each sensor
         try {
+            System.out.println("Start right sensor");
             rightSensor.start();
             Thread.sleep(163);
+            System.out.println("Start left sensor");
             leftSensor.start();
             Thread.sleep(157);
+            System.out.println("Start Front Right sensor");
             frontright.start();
             Thread.sleep(149);
         //    frontmiddle.start();
             Thread.sleep(140);
+            System.out.println("Start Front Left sensor");
             frontleft.start();
             Thread.sleep(131);
 
