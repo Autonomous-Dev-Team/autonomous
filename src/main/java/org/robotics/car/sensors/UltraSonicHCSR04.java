@@ -89,8 +89,8 @@ public class UltraSonicHCSR04 extends Sensor {
         echoPin = RaspiPin.getPinByAddress(gpioEcho);
         triggerPin = RaspiPin.getPinByAddress(gpioTrigger);
 
-        System.out.println("Echo Pin [" + echoPin.getAddress() + "] has name " + echoPin.getName());
-        System.out.println("Trigger Pin [" + triggerPin.getAddress() + "] has name " + triggerPin.getName());
+        System.out.println("Echo Pin [" + echoPin.getAddress() + "] for name " + name);
+        System.out.println("Trigger Pin [" + triggerPin.getAddress() + "] for name " + name);
 
 
         // Sonic Sensor specific members
