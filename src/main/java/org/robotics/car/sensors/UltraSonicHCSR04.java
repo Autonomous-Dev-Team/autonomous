@@ -290,7 +290,7 @@ public class UltraSonicHCSR04 extends Sensor {
             end = System.nanoTime();
 
             if (countdown <= 0) {
-                throw new TimeoutException("Timeout waiting for signal end");
+                throw new TimeoutException("Timeout waiting for signal end for " + getSensorName());
             }
             double distEcho = duration / 58.2;
             double distPulse = ((end - start) / 1000.0) * 0.017;
