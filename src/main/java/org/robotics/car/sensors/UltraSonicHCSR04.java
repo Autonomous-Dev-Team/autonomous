@@ -89,8 +89,8 @@ public class UltraSonicHCSR04 extends Sensor {
         echoPin = RaspiPin.getPinByAddress(gpioEcho);
         triggerPin = RaspiPin.getPinByAddress(gpioTrigger);
 
-        System.out.println("Echo Pin [" + echoPin.getAddress() + "] has name " + echoPin.getName());
-        System.out.println("Trigger Pin [" + triggerPin.getAddress() + "] has name " + triggerPin.getName());
+        System.out.println("Echo Pin [" + echoPin.getAddress() + "] for name " + name);
+        System.out.println("Trigger Pin [" + triggerPin.getAddress() + "] for name " + name);
 
 
         // Sonic Sensor specific members
@@ -290,7 +290,7 @@ public class UltraSonicHCSR04 extends Sensor {
             end = System.nanoTime();
 
             if (countdown <= 0) {
-                throw new TimeoutException("Timeout waiting for signal end");
+                throw new TimeoutException("Timeout waiting for signal end for " + getSensorName());
             }
             double distEcho = duration / 58.2;
             double distPulse = ((end - start) / 1000.0) * 0.017;

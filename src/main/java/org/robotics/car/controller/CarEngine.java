@@ -100,19 +100,25 @@ public class CarEngine {
         UltraSonicHCSR04 rightSensor = new UltraSonicHCSR04("Right sensor", 27, 24);
         UltraSonicHCSR04 leftSensor = new UltraSonicHCSR04("Left sensor", 7, 0);
         UltraSonicHCSR04 frontright = new UltraSonicHCSR04("Front Right sensor", 5, 6);
-        UltraSonicHCSR04 frontmiddle = new UltraSonicHCSR04("Front Middle sensor", 3, 4);
         UltraSonicHCSR04 frontleft = new UltraSonicHCSR04("Front Left sensor", 1, 2);
+
+        // Don't create an instance for the middle sensor
+        UltraSonicHCSR04 frontmiddle = null; //new UltraSonicHCSR04("Front Middle sensor", 3, 4);
 
         // Start measurement for each sensor
         try {
+            System.out.println("Start right sensor");
             rightSensor.start();
             Thread.sleep(163);
+            System.out.println("Start left sensor");
             leftSensor.start();
             Thread.sleep(157);
+            System.out.println("Start Front Right sensor");
             frontright.start();
             Thread.sleep(149);
-            frontmiddle.start();
+        //    frontmiddle.start();
             Thread.sleep(140);
+            System.out.println("Start Front Left sensor");
             frontleft.start();
             Thread.sleep(131);
 
@@ -129,7 +135,7 @@ public class CarEngine {
         // local variables
         float frontRightMeasuredDistance = 0;
         float frontLeftMeasuredDistance = 0;
-        float frontMiddleMeasuredDistance = 0;
+        float frontMiddleMeasuredDistance = 25;
         float leftMeasuredDistance = 0;
         float rightMeasuredDistance = 0;
 
@@ -150,7 +156,10 @@ public class CarEngine {
                 // Read all the measurements
                 frontRightMeasuredDistance = frontright.getDistance();
                 frontLeftMeasuredDistance = frontleft.getDistance();
-                frontMiddleMeasuredDistance = frontmiddle.getDistance();
+
+                // Turn off middle sensor measurement
+                //frontMiddleMeasuredDistance = frontmiddle.getDistance();
+
                 leftMeasuredDistance = leftSensor.getDistance();
                 rightMeasuredDistance = rightSensor.getDistance();
 
@@ -400,7 +409,7 @@ public class CarEngine {
 
         // Stop sensors
         frontright.shutdown();
-        frontmiddle.shutdown();
+     //   frontmiddle.shutdown();
         frontleft.shutdown();
         leftSensor.shutdown();
         rightSensor.shutdown();
