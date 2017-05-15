@@ -31,8 +31,8 @@ public class MotorController {
     // Constant
     // private double TIME_FOR_ONE_DEGREE_TURN = 16.667; //milli seconds per degree
 
-    static private float DEFAULT_POWER_LEVEL = 30.0f;
-    static private float DEFAULT_SPEED = 30.0f;
+    static private float DEFAULT_POWER_LEVEL = 20.0f;
+    static private float DEFAULT_SPEED = 20.0f;
 
     static private float CARPET_SPEED = 1.5f;
     static private float CARPET_TURN = 5.2f;
