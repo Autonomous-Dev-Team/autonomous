@@ -22,6 +22,8 @@ The library can be build in two ways:
 
 # Getting started
 
-Documentation (Google Drive):
- https://docs.google.com/document/d/1MvURIHphfd5TZz5hBHUys1utapFwbRUo91VifWZ5Aaw/edit?usp=sharing
+Step By Step How to Build (Google Document):
+https://docs.google.com/document/d/125Z1s9gamgt9x0oC5xvN6PVvQiNFwhoTcr-QRgdYTZ4/edit?usp=sharing
 
+Little segments of how we did it (Google Slides):
+https://docs.google.com/presentation/d/1RyZcO2RkUrDu2S91-6pBHclkt5ZsnYKfXWGcaNwbrqs/edit?usp=sharing
