@@ -4,12 +4,19 @@ to control sensors, DC motors, LED's, stepper motors etc and to connect them.
 
 It's all Open Source for education released under Apache2 license.
 
-# What is it
-The output is a single library that can be executed on a RaspberryPI board with Java 8
+# Project pre-requisites
+## Required components
+PI4J libraries (http://pi4j.com)
 
-The library can be build in two ways:
-* maven build -- mvn install from the root directory will produce the library in target
-* copy the files on the RaspberryPI and step into the raspberrypi_cmd directory and run ./compile.sh
+PJ4J This project is intended to provide a friendly object-oriented I/O API and
+implementation libraries for Java Programmers to access the full I/O capabilities of the Raspberry Pi platform.
+This project abstracts the low-level native integration and interrupt monitoring to enable Java programmers to focus on implementing their application business logic.
+
+Java JDK 8 -- All samples and code is built and tested with Java 8
+
+## Optional
+maven -- Build and project management tool.
+
 
 
 # Project Goals
@@ -22,6 +29,8 @@ The library can be build in two ways:
 
 # Getting started
 
-Documentation (Google Drive):
- https://docs.google.com/document/d/1MvURIHphfd5TZz5hBHUys1utapFwbRUo91VifWZ5Aaw/edit?usp=sharing
+Step By Step How to Build (Google Document):
+https://docs.google.com/document/d/125Z1s9gamgt9x0oC5xvN6PVvQiNFwhoTcr-QRgdYTZ4/edit?usp=sharing
 
+Little segments of how we did it (Google Slides):
+https://docs.google.com/presentation/d/1RyZcO2RkUrDu2S91-6pBHclkt5ZsnYKfXWGcaNwbrqs/edit?usp=sharing
