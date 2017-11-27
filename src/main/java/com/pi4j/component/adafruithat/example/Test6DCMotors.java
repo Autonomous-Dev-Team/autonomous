@@ -150,7 +150,7 @@ public class Test6DCMotors {
 
 		motorMiddleLeft.reverse();
 		motorMiddleRight.reverse();
-		motorHatLower.sleep(6000);
+		motorHatLower.sleep(4000);
 
 
 		//move forward at power level specified above
