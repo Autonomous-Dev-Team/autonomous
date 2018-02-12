@@ -90,7 +90,7 @@ public class TestDCMotors {
 
 
 
-		//A speed value of 100 sets the DC motor to maximum throttle.
+		//A speed value of 100 sets the DC motor to .maximum throttle.
 		//The default power range is 1.0.
 
                 /*
