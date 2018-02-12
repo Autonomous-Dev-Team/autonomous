@@ -126,22 +126,22 @@ public class TestDCMotors {
 		motorBackRight.forward();
 		motorMiddleLeft.forward();
 		motorMiddleRight.forward();
-		motorHat.sleep(6000);
+		motorHat.sleep(5000);
 
 
 
 
 
-		//move forward at power level specified above
-		/*System.out.println("Move foward for 2 sec");
+		/*move forward at power level specified above
+		System.out.println("Move foward for 2 sec");
 		motorFrontLeft.forward();
 		motorFrontRight.forward();
 		motorBackLeft.forward();
 		motorBackRight.forward();
 		motorHat.sleep(2000);
-
-		// Turn 180 degrees
-		// Turn left 1500 ms for 90 degrees
+*/
+		 //Turn 180 degrees
+		 //Turn left 1500 ms for 90 degrees
 		System.out.println("Make a left turn ...");
 		motorFrontLeft.reverse();
 		motorBackRight.forward();
@@ -149,7 +149,7 @@ public class TestDCMotors {
 		motorBackLeft.reverse();
 		motorHat.sleep(3200);
 
-		System.out.println("Drive back to starting point ..");
+		/*System.out.println("Drive back to starting point ..");
 		motorFrontLeft.forward();
 		motorFrontRight.forward();
 		motorBackLeft.forward();
