@@ -129,7 +129,7 @@ public class Test6DCMotors {
 
 
 		//move forward at power level specified above
-		System.out.println("Move foward for 4 sec");
+		System.out.println("Move foward for 2 sec");
 		motorFrontLeft.forward();
 		motorFrontRight.forward();
 
@@ -138,10 +138,10 @@ public class Test6DCMotors {
 
 		motorMiddleLeft.forward();
 		motorMiddleRight.forward();
-		motorHatLower.sleep(3500);
+		motorHatLower.sleep(2000);
 
 		//move forward at power level specified above
-		System.out.println("Move back for 4 sec");
+		System.out.println("Move back for 2 sec");
 		motorFrontLeft.reverse();
 		motorFrontRight.reverse();
 
@@ -150,7 +150,7 @@ public class Test6DCMotors {
 
 		motorMiddleLeft.reverse();
 		motorMiddleRight.reverse();
-		motorHatLower.sleep(3500);
+		motorHatLower.sleep(2000);
 
 
 		//move forward at power level specified above
@@ -167,7 +167,10 @@ public class Test6DCMotors {
 		motorFrontLeft.reverse();
 		motorBackRight.forward();
 		motorFrontRight.forward();
+		motorMiddleRight.forward();
+		motorMiddleLeft.reverse();
 		motorBackLeft.reverse();
+
 		motorHatLower.sleep(1200);
 
 		System.out.println("Make a right turn ...");
@@ -175,13 +178,18 @@ public class Test6DCMotors {
 		motorBackLeft.forward();
 		motorFrontLeft.forward();
 		motorBackRight.reverse();
+		motorMiddleRight.reverse();
+		motorMiddleLeft.forward();
 		motorHatLower.sleep(1200);
 
 		System.out.println("Make a left turn ...");
 		motorFrontLeft.reverse();
 		motorBackRight.forward();
 		motorFrontRight.forward();
+		motorMiddleRight.forward();
+		motorMiddleLeft.reverse();
 		motorBackLeft.reverse();
+
 		motorHatLower.sleep(1200);
 
 		System.out.println("Make a right turn ...");
@@ -189,13 +197,18 @@ public class Test6DCMotors {
 		motorBackLeft.forward();
 		motorFrontLeft.forward();
 		motorBackRight.reverse();
+		motorMiddleRight.reverse();
+		motorMiddleLeft.forward();
 		motorHatLower.sleep(1200);
 
 		System.out.println("Make a left turn ...");
 		motorFrontLeft.reverse();
 		motorBackRight.forward();
 		motorFrontRight.forward();
+		motorMiddleRight.forward();
+		motorMiddleLeft.reverse();
 		motorBackLeft.reverse();
+
 		motorHatLower.sleep(1200);
 
 		System.out.println("Make a right turn ...");
@@ -203,7 +216,11 @@ public class Test6DCMotors {
 		motorBackLeft.forward();
 		motorFrontLeft.forward();
 		motorBackRight.reverse();
+		motorMiddleRight.reverse();
+		motorMiddleLeft.forward();
 		motorHatLower.sleep(1200);
+
+
 
 		//Stop motors in brake mode.
 		motorFrontLeft.setBrakeMode(true);
