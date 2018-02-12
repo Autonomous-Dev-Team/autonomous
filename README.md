@@ -14,18 +14,46 @@ This project abstracts the low-level native integration and interrupt monitoring
 
 Java JDK 8 -- All samples and code is built and tested with Java 8
 
+git -- repository management tool
+
 ## Optional
 maven -- Build and project management tool.
 
 
-
-# Project Goals
-1) Enable anybody interested to be able to create a low cost robot, self driving car and more
-2) Learn the basics of Java programming in a fun environment
-3) Build a powerfull toolset that we can share with others
-4) Getting more people interested in programming
-
 # Setup
+You can either develop on your workstation and deploy the libray to the raspberry PI or do all 
+development on the raspberry PI.
+## Development environment Desktop
+Use the IDE of your choice InteliJ (community edition is great) or Eclipse and install maven from the
+Apache site http://maven.apache.org.
+
+Clone the project from within the IDE
+
+From the command line you can build the library using maven. This will build the library (herbie-0.0.3-SNAPSHOT.jar)
+in the target directory.
+
+Just deploy the library and the run.sh to the raspberry pi and run the car.
+
+## Development on Raspberry PI
+Make sure that the pre-requisit are installed
+Java JDK 8 -- should be already on the latest Raspberry PI
+PI4J libraries -- Follow the intstructions here: http://pi4j.com/install.html
+
+Once the pre-requisits are installed do the following:
+* create a project folder: mkdir ~/TLMaker
+* step into the folder: cd ~/TLMaker
+* Get the source code from github: git clone https://github.com/Autonomous-Dev-Team/autonomous.git
+
+Build the library
+* step into the directory that contains all build scripts: cd autonomous/raspberrypi_cmd
+* Build the library: ./compile.sh
+
+At this point you can start the car by executing: ./run.sh
+
+After modifying the source code just execute the compile.sh script to create a new library.
+
+On the Raspberry P you should use Geany as your editor.
+
 
 # Getting started
 
