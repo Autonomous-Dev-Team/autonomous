@@ -49,6 +49,7 @@ public class Test6DCMotors {
 
 
 	public static void main(String[] args) {
+		// =)
 		/*
 			Create an instance of the Motor controller
 		*/
