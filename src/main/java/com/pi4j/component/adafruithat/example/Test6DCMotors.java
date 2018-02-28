@@ -163,7 +163,7 @@ public class Test6DCMotors {
 */
 		// Turn 180 degrees
 		//Turn left 1500 ms for 90 degrees
-		System.out.println("Make a left turn ...");
+		System.out.println("Make a left turn 4 seconds...");
 		motorFrontLeft.reverse();
 		motorBackRight.forward();
 		motorFrontRight.forward();
@@ -171,54 +171,19 @@ public class Test6DCMotors {
 		motorMiddleLeft.reverse();
 		motorBackLeft.reverse();
 
-		motorHatLower.sleep(1200);
+		motorHatLower.sleep(4000);
 
-		System.out.println("Make a right turn ...");
+		System.out.println("Make a right turn 4 seconds...");
 		motorFrontRight.reverse();
 		motorBackLeft.forward();
 		motorFrontLeft.forward();
 		motorBackRight.reverse();
 		motorMiddleRight.reverse();
 		motorMiddleLeft.forward();
-		motorHatLower.sleep(1200);
+		motorHatLower.sleep(4000);
 
-		System.out.println("Make a left turn ...");
-		motorFrontLeft.reverse();
-		motorBackRight.forward();
-		motorFrontRight.forward();
-		motorMiddleRight.forward();
-		motorMiddleLeft.reverse();
-		motorBackLeft.reverse();
 
-		motorHatLower.sleep(1200);
 
-		System.out.println("Make a right turn ...");
-		motorFrontRight.reverse();
-		motorBackLeft.forward();
-		motorFrontLeft.forward();
-		motorBackRight.reverse();
-		motorMiddleRight.reverse();
-		motorMiddleLeft.forward();
-		motorHatLower.sleep(1200);
-
-		System.out.println("Make a left turn ...");
-		motorFrontLeft.reverse();
-		motorBackRight.forward();
-		motorFrontRight.forward();
-		motorMiddleRight.forward();
-		motorMiddleLeft.reverse();
-		motorBackLeft.reverse();
-
-		motorHatLower.sleep(1200);
-
-		System.out.println("Make a right turn ...");
-		motorFrontRight.reverse();
-		motorBackLeft.forward();
-		motorFrontLeft.forward();
-		motorBackRight.reverse();
-		motorMiddleRight.reverse();
-		motorMiddleLeft.forward();
-		motorHatLower.sleep(1200);
 
 
 
