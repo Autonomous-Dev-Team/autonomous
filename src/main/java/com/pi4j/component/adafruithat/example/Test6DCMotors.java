@@ -118,13 +118,13 @@ public class Test6DCMotors {
 		//Set power but do not set or change the motor state (stop, forward, reverse)
 		//The power value will be used with the next forward() or reverse() command and
 		//does not otherwise change the current motor power level.
-		motorFrontLeft.setPower(DEFAULT_POWER_LEVEL * 3/2);
-		motorFrontRight.setPower(DEFAULT_POWER_LEVEL * 3/2);
-		motorBackLeft.setPower(DEFAULT_POWER_LEVEL * 3/2);
-		motorBackRight.setPower(DEFAULT_POWER_LEVEL * 3/2);
+		motorFrontLeft.setPower(DEFAULT_POWER_LEVEL * 3);
+		motorFrontRight.setPower(DEFAULT_POWER_LEVEL * 3);
+		motorBackLeft.setPower(DEFAULT_POWER_LEVEL * 3);
+		motorBackRight.setPower(DEFAULT_POWER_LEVEL * 3);
 
-        motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL * 3/2);
-        motorMiddleRight.setPower(DEFAULT_POWER_LEVEL * 3/2);
+        motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL * 3);
+        motorMiddleRight.setPower(DEFAULT_POWER_LEVEL * 3);
 
 
 		// Turn 180 degrees
