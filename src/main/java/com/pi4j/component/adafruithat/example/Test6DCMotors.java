@@ -118,13 +118,13 @@ public class Test6DCMotors {
 		//Set power but do not set or change the motor state (stop, forward, reverse)
 		//The power value will be used with the next forward() or reverse() command and
 		//does not otherwise change the current motor power level.
-		motorFrontLeft.setPower(DEFAULT_POWER_LEVEL);
-		motorFrontRight.setPower(DEFAULT_POWER_LEVEL);
-		motorBackLeft.setPower(DEFAULT_POWER_LEVEL);
-		motorBackRight.setPower(DEFAULT_POWER_LEVEL);
+		motorFrontLeft.setPower(DEFAULT_POWER_LEVEL/2);
+		motorFrontRight.setPower(DEFAULT_POWER_LEVEL/2);
+		motorBackLeft.setPower(DEFAULT_POWER_LEVEL/2);
+		motorBackRight.setPower(DEFAULT_POWER_LEVEL/2);
 
-        motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL);
-        motorMiddleRight.setPower(DEFAULT_POWER_LEVEL);
+        motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL/2);
+        motorMiddleRight.setPower(DEFAULT_POWER_LEVEL/2);
 
 
 
@@ -140,7 +140,7 @@ public class Test6DCMotors {
 		motorMiddleRight.forward();
 		motorHatLower.sleep(2000);
 
-		motorHatLower.sleep(2000);
+
 
 		//move forward at power level specified above
 		System.out.println("Move back for 3 sec");
