@@ -140,6 +140,8 @@ public class Test6DCMotors {
 		motorMiddleRight.forward();
 		motorHatLower.sleep(2000);
 
+		motorHatLower.sleep(2000);
+
 		//move forward at power level specified above
 		System.out.println("Move back for 3 sec");
 		motorFrontLeft.reverse();
