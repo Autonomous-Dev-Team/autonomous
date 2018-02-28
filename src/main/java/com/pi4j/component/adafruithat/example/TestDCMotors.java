@@ -30,6 +30,8 @@ package com.pi4j.component.adafruithat.example;
 import com.pi4j.component.adafruithat.AdafruitDcMotor;
 import com.pi4j.component.adafruithat.AdafruitMotorHat;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 /**
  * Example program commanding a DC Motor wired to a AdafruitMotorHat.
  * <p>
@@ -78,13 +80,17 @@ public class TestDCMotors {
 		//	AdafruitDcMotor motorFrontLeft  = motorHat.getDcMotor("M3");
 		//			AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M4");
 
-		AdafruitDcMotor motorBackRight = motorHat.getDcMotor("M4");
-		AdafruitDcMotor motorBackLeft = motorHat.getDcMotor("M3");
-		AdafruitDcMotor motorFrontLeft = motorHat.getDcMotor("M1");
-		AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M2");
+		AdafruitDcMotor motorBackRight = motorHat.getDcMotor("M2");
+		AdafruitDcMotor motorBackLeft = motorHat.getDcMotor("M1");
+		AdafruitDcMotor motorFrontLeft = motorHat.getDcMotor("M3");
+		AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M4");
+
+		AdafruitDcMotor motorMiddleLeft = motorHat.getDcMotor("M1");
+		AdafruitDcMotor motorMiddleRight = motorHat.getDcMotor("M2");
 
 
-		//A speed value of 100 sets the DC motor to maximum throttle.
+
+		//A speed value of 100 sets the DC motor to .maximum throttle.
 		//The default power range is 1.0.
 
                 /*
@@ -97,6 +103,9 @@ public class TestDCMotors {
 		motorBackLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
 		motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
 
+		motorMiddleLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+		motorMiddleRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+
 
 		//Set power but do not set or change the motor state (stop, forward, reverse)
 		//The power value will be used with the next forward() or reverse() command and
@@ -105,6 +114,8 @@ public class TestDCMotors {
 		motorFrontRight.setPower(DEFAULT_POWER_LEVEL);
 		motorBackLeft.setPower(DEFAULT_POWER_LEVEL);
 		motorBackRight.setPower(DEFAULT_POWER_LEVEL);
+		motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL);
+		motorMiddleRight.setPower(DEFAULT_POWER_LEVEL);
 
 
 		//move forward at power level specified above
@@ -113,22 +124,24 @@ public class TestDCMotors {
 		motorFrontRight.forward();
 		motorBackLeft.forward();
 		motorBackRight.forward();
-		motorHat.sleep(6000);
+		motorMiddleLeft.forward();
+		motorMiddleRight.forward();
+		motorHat.sleep(5000);
 
 
 
 
 
-		//move forward at power level specified above
-		/*System.out.println("Move foward for 2 sec");
+		/*move forward at power level specified above
+		System.out.println("Move foward for 2 sec");
 		motorFrontLeft.forward();
 		motorFrontRight.forward();
 		motorBackLeft.forward();
 		motorBackRight.forward();
 		motorHat.sleep(2000);
-
-		// Turn 180 degrees
-		// Turn left 1500 ms for 90 degrees
+*/
+		 //Turn 180 degrees
+		 //Turn left 1500 ms for 90 degrees
 		System.out.println("Make a left turn ...");
 		motorFrontLeft.reverse();
 		motorBackRight.forward();
@@ -136,7 +149,7 @@ public class TestDCMotors {
 		motorBackLeft.reverse();
 		motorHat.sleep(3200);
 
-		System.out.println("Drive back to starting point ..");
+		/*System.out.println("Drive back to starting point ..");
 		motorFrontLeft.forward();
 		motorFrontRight.forward();
 		motorBackLeft.forward();
