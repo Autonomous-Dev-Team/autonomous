@@ -129,7 +129,7 @@ public class Test6DCMotors {
 
 
 		//move forward at power level specified above
-		System.out.println("Move foward for 2 sec");
+		System.out.println("Move foward for 1 sec");
 		motorFrontLeft.forward();
 		motorFrontRight.forward();
 
@@ -138,12 +138,12 @@ public class Test6DCMotors {
 
 		motorMiddleLeft.forward();
 		motorMiddleRight.forward();
-		motorHatLower.sleep(2000);
+		motorHatLower.sleep(1000);
 
 
 
 		//move forward at power level specified above
-		System.out.println("Move back for 3 sec");
+		System.out.println("Move back for 1 sec");
 		motorFrontLeft.reverse();
 		motorFrontRight.reverse();
 
@@ -152,7 +152,7 @@ public class Test6DCMotors {
 
 		motorMiddleLeft.reverse();
 		motorMiddleRight.reverse();
-		motorHatLower.sleep(3000);
+		motorHatLower.sleep(1000);
 
 
 		//move forward at power level specified above
