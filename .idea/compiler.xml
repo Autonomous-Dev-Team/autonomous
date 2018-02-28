@@ -9,8 +9,5 @@
         <module name="autonomous" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="autonomous" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

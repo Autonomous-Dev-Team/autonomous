@@ -126,7 +126,17 @@ public class Test6DCMotors {
         motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL);
         motorMiddleRight.setPower(DEFAULT_POWER_LEVEL);
 
+		//move forward at power level specified above
+		/*System.out.println("Move back for 4 sec");
+		motorFrontLeft.reverse();
+		motorFrontRight.reverse();
 
+		motorBackLeft.reverse();
+		motorBackRight.reverse();
+
+		motorMiddleLeft.reverse();
+		motorMiddleRight.reverse();
+		motorHatLower.sleep(4000);
 
 		//move forward at power level specified above
 		System.out.println("Move foward for 4 sec");
@@ -140,18 +150,27 @@ public class Test6DCMotors {
 		motorMiddleRight.forward();
 		motorHatLower.sleep(4000);
 
-		//move forward at power level specified above
-		System.out.println("Move back for 4 sec");
+		// Tuen left bois
 		motorFrontLeft.reverse();
-		motorFrontRight.reverse();
-
+		motorBackRight.forward();
+		motorFrontRight.forward();
 		motorBackLeft.reverse();
+		motorHat.sleep(1600);
+		*/
+
+		System.out.println("Make a left turn ...");
+		motorFrontLeft.reverse();
+		motorBackRight.forward();
+		motorFrontRight.forward();
+		motorBackLeft.reverse();
+		motorHat.sleep(8000);
+
+		System.out.println("Make a right turn ...");
+		motorFrontLeft.forward();
 		motorBackRight.reverse();
-
-		motorMiddleLeft.reverse();
-		motorMiddleRight.reverse();
-		motorHatLower.sleep(4000);
-
+		motorFrontRight.reverse();
+		motorBackLeft.forward();
+		motorHat.sleep(8000);
 
 		//move forward at power level specified above
 		/*System.out.println("Move foward for 2 sec");
