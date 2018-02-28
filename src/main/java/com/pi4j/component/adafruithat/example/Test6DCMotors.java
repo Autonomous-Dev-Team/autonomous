@@ -162,7 +162,13 @@ public class Test6DCMotors {
 		motorBackLeft.forward();
 		motorBackRight.forward();
 		motorHat.sleep(2000);
-*/
+*/motorFrontLeft.setPower(DEFAULT_POWER_LEVEL);
+		motorFrontRight.setPower(DEFAULT_POWER_LEVEL);
+		motorBackLeft.setPower(DEFAULT_POWER_LEVEL );
+		motorBackRight.setPower(DEFAULT_POWER_LEVEL );
+
+		motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL );
+		motorMiddleRight.setPower(DEFAULT_POWER_LEVEL);
 		// Turn 180 degrees
 		//Turn left 1500 ms for 90 degrees
 		System.out.println("Make a left turn 4 seconds...");
