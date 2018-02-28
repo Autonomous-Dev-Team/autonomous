@@ -127,51 +127,9 @@ public class Test6DCMotors {
         motorMiddleRight.setPower(DEFAULT_POWER_LEVEL * 3/2);
 
 
-
-		//move forward at power level specified above
-		System.out.println("Move foward for 1 sec");
-		motorFrontLeft.forward();
-		motorFrontRight.forward();
-
-        motorBackLeft.forward();
-        motorBackRight.forward();
-
-		motorMiddleLeft.forward();
-		motorMiddleRight.forward();
-		motorHatLower.sleep(1000);
-
-
-
-		//move forward at power level specified above
-		System.out.println("Move back for 1 sec");
-		motorFrontLeft.reverse();
-		motorFrontRight.reverse();
-
-		motorBackLeft.reverse();
-		motorBackRight.reverse();
-
-		motorMiddleLeft.reverse();
-		motorMiddleRight.reverse();
-		motorHatLower.sleep(1000);
-
-
-		//move forward at power level specified above
-		/*System.out.println("Move foward for 2 sec");
-		motorFrontLeft.forward();
-		motorFrontRight.forward();
-		motorBackLeft.forward();
-		motorBackRight.forward();
-		motorHat.sleep(2000);
-*/motorFrontLeft.setPower(DEFAULT_POWER_LEVEL);
-		motorFrontRight.setPower(DEFAULT_POWER_LEVEL);
-		motorBackLeft.setPower(DEFAULT_POWER_LEVEL );
-		motorBackRight.setPower(DEFAULT_POWER_LEVEL );
-
-		motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL );
-		motorMiddleRight.setPower(DEFAULT_POWER_LEVEL);
 		// Turn 180 degrees
 		//Turn left 1500 ms for 90 degrees
-		System.out.println("Make a left turn 4 seconds...");
+		System.out.println("Make a left turn 8 seconds...");
 		motorFrontLeft.reverse();
 		motorBackRight.forward();
 		motorFrontRight.forward();
@@ -179,16 +137,16 @@ public class Test6DCMotors {
 		motorMiddleLeft.reverse();
 		motorBackLeft.reverse();
 
-		motorHatLower.sleep(4000);
+		motorHatLower.sleep(8000);
 
-		System.out.println("Make a right turn 4 seconds...");
+		System.out.println("Make a right turn 8 seconds...");
 		motorFrontRight.reverse();
 		motorBackLeft.forward();
 		motorFrontLeft.forward();
 		motorBackRight.reverse();
 		motorMiddleRight.reverse();
 		motorMiddleLeft.forward();
-		motorHatLower.sleep(4000);
+		motorHatLower.sleep(8000);
 
 
 
