@@ -30,6 +30,8 @@ package com.pi4j.component.adafruithat.example;
 import com.pi4j.component.adafruithat.AdafruitDcMotor;
 import com.pi4j.component.adafruithat.AdafruitMotorHat;
 
+
+
 /**
  * Example program commanding a DC Motor wired to a AdafruitMotorHat.
  * <p>
@@ -164,14 +166,14 @@ public class Test6DCMotors {
 		motorBackRight.forward();
 		motorFrontRight.forward();
 		motorBackLeft.reverse();
-		motorHat.sleep(8000);
+		motorHatLower.sleep(8000);
 
 		System.out.println("Make a right turn ...");
 		motorFrontLeft.forward();
 		motorBackRight.reverse();
 		motorFrontRight.reverse();
 		motorBackLeft.forward();
-		motorHat.sleep(8000);
+		motorHatLower.sleep(8000);
 
 		//move forward at power level specified above
 		/*System.out.println("Move foward for 2 sec");
