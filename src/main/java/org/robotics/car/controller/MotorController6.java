@@ -3,6 +3,8 @@ package org.robotics.car.controller;
 import com.pi4j.component.adafruithat.AdafruitDcMotor;
 import com.pi4j.component.adafruithat.AdafruitMotorHat;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class MotorController6 {
    // Constant
 
@@ -57,31 +59,32 @@ public class MotorController6 {
 
 
         // Set default power range
-        motorFrontLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
-        motorFrontRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorFrontLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorFrontRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
 
-        motorBackLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
-        motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorBackLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
 
-        motorMiddleLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
-        motorMiddleRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorMiddleLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorMiddleRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
 
 
         //Set power but do not set or change the motor state (stop, forward, reverse)
         //The power value will be used with the next forward() or reverse() command and
         //does not otherwise change the current motor power level.
-        motorFrontLeft.setPower(DEFAULT_POWER_LEVEL);
-        motorFrontRight.setPower(DEFAULT_POWER_LEVEL);
-        motorBackLeft.setPower(DEFAULT_POWER_LEVEL);
-        motorBackRight.setPower(DEFAULT_POWER_LEVEL);
+        this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL);
+        this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL);
+        this.motorBackLeft.setPower(DEFAULT_POWER_LEVEL);
+        this.motorBackRight.setPower(DEFAULT_POWER_LEVEL);
 
-        motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL);
-        motorMiddleRight.setPower(DEFAULT_POWER_LEVEL);
+        this.motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL);
+        this.motorMiddleRight.setPower(DEFAULT_POWER_LEVEL);
 
     }
 
     public void uninitialize() {
-        motorHat.stopAll();
+        motorHatUpper.stopAll();
+        motorHatLower.stopAll();
     }
 
     public boolean initialize() {
@@ -98,7 +101,8 @@ public class MotorController6 {
             Runtime.getRuntime().addShutdownHook(new Thread() {
                 public void run() {
                     System.out.println("Turn off all motors");
-                    motorHat.stopAll();
+                    motorHatUpper.stopAll();
+                    motorHatLower.stopAll();
                 }
             });
 

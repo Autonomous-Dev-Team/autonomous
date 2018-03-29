@@ -321,7 +321,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Command the DC motor to go in the forward direction.
 	 */
-	@Override
+	
 	public void forward() {
 		IN2_VALUES = IN_FORWARD;
 		IN1_VALUES = IN_REVERSE;
@@ -335,7 +335,7 @@ public class AdafruitDcMotor implements Motor {
 	 * Command the DC motor to go in the forward direction for the time
 	 * specified then stop.
 	 */
-	@Override
+	 
 	public void forward(long milliseconds) {
 		IN2_VALUES = IN_FORWARD;
 		IN1_VALUES = IN_REVERSE;
@@ -351,7 +351,7 @@ public class AdafruitDcMotor implements Motor {
 	/** 
 	 * Command the DC motor to go in the reverse direction.
 	 */
-	@Override
+	 
 	public void reverse() {
 		IN2_VALUES = IN_REVERSE;
 		IN1_VALUES = IN_FORWARD;
@@ -365,7 +365,7 @@ public class AdafruitDcMotor implements Motor {
 	 * Command the DC motor to go in the reverse direction for the time
 	 * specified then stop.
 	 */
-	@Override
+	 
 	public void reverse(long milliseconds) {
 		IN2_VALUES = IN_REVERSE;
 		IN1_VALUES = IN_FORWARD;
@@ -381,7 +381,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Stop the motor.
 	 */
-	@Override
+	 
 	public void stop() {
 		//if brakeMode then temporarily switch direction to quickly stop motor.
 		if (brakeMode) {
@@ -400,7 +400,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Returns motor name
 	 */
-	@Override
+	 
 	public String getName() {
 		//Here's our generated device
 		return String.format("Adafuit DcMotor Device: 0X%04X Motor: %s", motorHat.DEVICE_ADDR, motor);
@@ -410,7 +410,7 @@ public class AdafruitDcMotor implements Motor {
 	 * Is the motor state the value passed to this method?
 	 * returns true or false
 	 */
-	@Override
+	 
 	public boolean isState(MotorState state) {
 		return (motorState == state);
 	}
@@ -419,7 +419,7 @@ public class AdafruitDcMotor implements Motor {
 	 * Is the motor stopped?
 	 * returns true of false
 	 */
-	@Override
+	 
 	public boolean isStopped() {
 		return (motorState == MotorState.STOP);
 	}
@@ -430,7 +430,7 @@ public class AdafruitDcMotor implements Motor {
 	 * MotorState.FORWARD
 	 * MotorState.BACKWARD
 	 */
-	@Override
+	 
 	public MotorState getState() {
 		//We're tracking the motor state with this variable
 		return motorState;
@@ -444,7 +444,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public void setName(String name) {
 		throw new UnsupportedOperationException();	
 	}
@@ -452,7 +452,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */	
-	@Override
+	 
 	public void setTag(Object tag) {
 		throw new UnsupportedOperationException();
 	}
@@ -461,7 +461,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public Object getTag() {
 		throw new UnsupportedOperationException();
 	}
@@ -470,7 +470,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public void setProperty(String key, String value) {
 		throw new UnsupportedOperationException();
 	}
@@ -479,7 +479,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public boolean hasProperty(String key) {
 		throw new UnsupportedOperationException();
 	}
@@ -488,7 +488,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public String getProperty(String key, String defaultValue) {
 		throw new UnsupportedOperationException();
 	}
@@ -497,7 +497,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public String getProperty(String key) {
 		throw new UnsupportedOperationException();
 	}
@@ -506,7 +506,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public Map<String, String> getProperties() {
 		throw new UnsupportedOperationException();
 	}
@@ -515,7 +515,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public void removeProperty(String key) {
 		throw new UnsupportedOperationException();	
 	}
@@ -524,7 +524,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * Place holder, does nothing
 	 */
-	@Override
+	 
 	public void clearProperties() {
 		throw new UnsupportedOperationException();	
 	}
@@ -533,7 +533,7 @@ public class AdafruitDcMotor implements Motor {
 	/**
 	 * This method disabled
 	 */
-	@Override
+	 
 	public void setState(MotorState state) {
 		throw new UnsupportedOperationException();
 	}
