@@ -5,8 +5,8 @@ public class FindTheHole {
     // Local members
     private double incrementPerIndex = 0;
     private double minObstacleDistance =0;
-    private double carWidth =0;
-    private double carLength = 0;
+    private double carWidth =30.48;
+    private double carLength = 43.18;
 
     // Constructor
     public FindTheHole(double incrementPerIndex, double minObstacleDistance, double carWidth, double carLength) {
