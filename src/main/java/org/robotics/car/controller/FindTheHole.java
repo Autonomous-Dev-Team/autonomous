@@ -2,10 +2,10 @@ package org.robotics.car.controller;
 
 public class FindTheHole {
 
-    // Local members
+    // Local members !!!!!In centimeters!!!!!
     private double incrementPerIndex = 0;
-    private double minObstacleDistance =22 ;
-    private double carWidth =30.48;
+    private double minObstacleDistance = 22 ;
+    private double carWidth = 30.48;
     private double carLength = 43.18;
 
     // Constructor
