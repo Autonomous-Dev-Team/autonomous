@@ -127,6 +127,12 @@ public class MotorController6 {
         motorBackRight.setBrakeMode(true);
         motorBackRight.stop();
 
+        motorMiddleLeft.setBrakeMode(true);
+        motorMiddleLeft.stop();
+
+        motorMiddleRight.setBrakeMode(true);
+        motorMiddleRight.stop();
+
 
         return true;
     }
@@ -141,8 +147,8 @@ public class MotorController6 {
         this.motorFrontRight.forward();
         this.motorBackLeft.forward();
         this.motorBackRight.forward();
-        motorMiddleLeft.forward();
-        motorMiddleRight.forward();
+        this.motorMiddleLeft.forward();
+        this.motorMiddleRight.forward();
 
         return true;
     }
@@ -175,6 +181,7 @@ public class MotorController6 {
         motorMiddleRight.reverse();
         motorFrontRight.reverse();
         motorBackLeft.forward();
+
 
 
         return true;
@@ -225,6 +232,13 @@ public class MotorController6 {
 
         motorBackRight.setBrakeMode(true);
         motorBackRight.stop();
+
+        motorMiddleRight.setBrakeMode(true);
+        motorMiddleRight.stop();
+
+        motorMiddleLeft.setBrakeMode(true);
+        motorMiddleLeft.stop();
+
 
         // Set power level (speed) for all 4 motors
         this.motorFrontLeft.reverse();
