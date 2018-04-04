@@ -16,7 +16,7 @@ public class FindTheHole {
         this.carLength = carLength;
     }
 
-    // Constructor using the default values for the car Poolux model
+    // Constructor using the default values for the car Pollux model
     public FindTheHole(double incrementPerIndex){
         this.incrementPerIndex = incrementPerIndex;
     }
