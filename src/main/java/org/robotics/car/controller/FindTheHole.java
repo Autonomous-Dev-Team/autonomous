@@ -4,7 +4,7 @@ public class FindTheHole {
 
     // Local members
     private double incrementPerIndex = 0;
-    private double minObstacleDistance =0;
+    private double minObstacleDistance =22 ;
     private double carWidth =30.48;
     private double carLength = 43.18;
 
