@@ -16,6 +16,11 @@ public class FindTheHole {
         this.carLength = carLength;
     }
 
+    // Constructor using the default values for the car Poolux model
+    public FindTheHole(double incrementPerIndex){
+        this.incrementPerIndex = incrementPerIndex;
+    }
+
     /**
      * Calculates the angle to move the robot
      * @param distances
