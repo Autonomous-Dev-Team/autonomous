@@ -28,10 +28,41 @@ public class FindTheHole {
      *
      * Output: Return the angle between 0 - (incrementPerIndex * size of array)
      */
-    public double getPathAngle(double[] distances) {
-        double result = 0;
+    public double getPathAngle(double[] distances, tooFar) {
+        private double increment = 180 / distances.length;
+        private double result = 0;
+        private double holeArcs = [];
+        private double startCritAngle;
+        private double endCritAngle;
+        private double startRadius;
+        private double endRadius;
+        private bool open = false;
+        private double bestHoleArc;
 
-        // TBD
+        for(i = distances.length; i =< 0; i--)
+        {
+            if(distances.i >= tooFar && open = false)
+            {
+                startCritAngle = i-1;
+                startRadius = distances[(i-1)];
+                open = true;
+            } else if(open = true && !(distances.i >= tooFar) {
+                endCritAngle = i;
+                endRadius = distances.i;
+                open = false;
+                holeArcs[].Add(new HoleArc((startCritAngle*increment), (endCritAngle*increment), startRadius, endRadius));
+            }
+        }
+
+        for(h = holeArcs.length; h =< 0; h--)
+        {
+            bestHoleArc = holeArcs[0]
+            if(bestHoleArc.getHoleWidth() <= holeArcs.h.getHoleWidth())
+            {
+                bestHoleArc = holeArcs.h;
+            }
+        }
+        result = ((bestHoleArc.getStartCritAngle() + bestHoleArc.getEndCritAngle())/2);
 
         return result;
     }
