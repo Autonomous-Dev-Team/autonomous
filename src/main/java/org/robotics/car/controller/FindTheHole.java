@@ -1,5 +1,7 @@
 package org.robotics.car.controller;
 
+import java.util.ArrayList;
+
 public class FindTheHole {
 
     // Local members !!!!!In centimeters!!!!!
@@ -28,33 +30,33 @@ public class FindTheHole {
      *
      * Output: Return the angle between 0 - (incrementPerIndex * size of array)
      */
-    public double getPathAngle(double[] distances, tooFar) {
-        private double increment = 180 / distances.length;
-        private double result = 0;
-        private double holeArcs = [];
-        private double startCritAngle;
-        private double endCritAngle;
-        private double startRadius;
-        private double endRadius;
-        private bool open = false;
-        private double bestHoleArc;
+    public double getPathAngle(double[] distances, double tooFar) {
+         double increment = 180 / distances.length;
+         double result = 0;
+         ArrayList<HoleArc> holeArcs =  new ArrayList();
+         double startCritAngle = -1;
+         double endCritAngle = -1;
+         double startRadius = -1;
+         double endRadius;
+         boolean open = false;
+         double bestHoleArc;
 
-        for(i = distances.length; i =< 0; i--)
+        for (int i = distances.length; i <= 0; i--)
         {
-            if(distances.i >= tooFar && open = false)
+            if(distances[i] >= tooFar && open == false)
             {
                 startCritAngle = i-1;
                 startRadius = distances[(i-1)];
                 open = true;
-            } else if(open = true && !(distances.i >= tooFar) {
+            } else if(open == true && !(distances[i] >= tooFar)) {
                 endCritAngle = i;
-                endRadius = distances.i;
+                endRadius = distances[i];
                 open = false;
-                holeArcs[].Add(new HoleArc((startCritAngle*increment), (endCritAngle*increment), startRadius, endRadius));
+                holeArcs.add(new HoleArc((startCritAngle*increment), (endCritAngle*increment), startRadius, endRadius));
             }
         }
 
-        for(h = holeArcs.length; h =< 0; h--)
+        /*for(int h = holeArcs.length; h <= 0; h--)
         {
             bestHoleArc = holeArcs[0]
             if(bestHoleArc.getHoleWidth() <= holeArcs.h.getHoleWidth())
@@ -63,7 +65,7 @@ public class FindTheHole {
             }
         }
         result = ((bestHoleArc.getStartCritAngle() + bestHoleArc.getEndCritAngle())/2);
-
+*/
         return result;
     }
 
