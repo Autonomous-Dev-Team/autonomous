@@ -40,22 +40,22 @@ public class TestFindPath {
 
         double result = 0;
 
-        result = findThePathObject.getPathAngle(moveLeft);
+        result = findThePathObject.getPathAngle(moveLeft,40);
 
         System.out.println("Input moveLeft outcome: " + result);
         System.out.println("Hint: we should expect a negative number between 0 and 90");
 
-        result = findThePathObject.getPathAngle(moveRight);
+        result = findThePathObject.getPathAngle(moveRight, 40);
 
         System.out.println("Input moverIGHT outcome: " + result);
         System.out.println("Hint: we should expect a POSITIVE number between 0 and 90");
 
-        result = findThePathObject.getPathAngle(moveBackward);
+        result = findThePathObject.getPathAngle(moveBackward, 40);
 
         System.out.println("Input moveBackward outcome: " + result);
         System.out.println("Hint: we should expect a number greater than 90 and smaller than 1000");
 
-        result = findThePathObject.getPathAngle(stop);
+        result = findThePathObject.getPathAngle(stop, 40);
 
         System.out.println("Input moverIGHT outcome: " + result);
         System.out.println("Hint: we should expect a number greater than 1000");

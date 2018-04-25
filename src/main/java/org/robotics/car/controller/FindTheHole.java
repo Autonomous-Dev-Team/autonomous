@@ -64,14 +64,17 @@ public class FindTheHole {
                 bestHoleArc = holeArcs.h;
             }
         }
+
         result = ((bestHoleArc.getStartCritAngle() + bestHoleArc.getEndCritAngle())/2);
 */
+        HoleArc best = getBestHoleArc(holeArcs);
+        result = ((best.getStartCritAngle() + best.getEndCritAngle())/2);
         return result;
     }
 
 
     // Private methods might be necessary
-    private HoleArc getBestHoleArc(HoleArc[] arcs)
+    private HoleArc getBestHoleArc(ArrayList<HoleArc> arcs)
     {
         double minAngle = Double.MAX_VALUE;
         HoleArc arcSelected = null;
