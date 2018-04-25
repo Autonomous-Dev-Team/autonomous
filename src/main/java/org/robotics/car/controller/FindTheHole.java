@@ -69,4 +69,28 @@ public class FindTheHole {
 
 
     // Private methods might be necessary
+    private HoleArc getBestHoleArc(HoleArc[] arcs)
+    {
+        double minAngle = Double.MAX_VALUE;
+        HoleArc arcSelected = null;
+
+        for(HoleArc arc : arcs)
+        {
+            double forwardX = 1;
+            double forwardY = 0;
+            double arcX = arc.getMidpointPositionX();
+            double arcY = arc.getMidpointPositionY();
+
+            double dotProductBetweenForwardAndOffset = forwardX*arcX + forwardY*arcY;
+            double angleBetween = Math.acos( dotProductBetweenForwardAndOffset / (Math.sqrt(forwardX*forwardX + forwardY*forwardY)*Math.sqrt(arcX*arcX + arcY*arcY)));
+
+            if(angleBetween < minAngle)
+            {
+                minAngle = angleBetween;
+                arcSelected = arc;
+            }
+        }
+
+        return arcSelected;
+    }
 }
