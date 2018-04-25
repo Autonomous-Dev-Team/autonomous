@@ -11,6 +11,8 @@ public class HoleArc
                     midpointPositionX = 0, midpointPositionY = 0, // The midpoint between the crit points in cartesian space
                     holeWidth = 0; // The size of the hole / width between crit points.
 
+
+    // IMPORTANT: ANGLES ARE IN DEGREES!!!
     public HoleArc(double startCritAngle, double endCritAngle, double startRadius, double endRadius)
     {
         // Initial values
@@ -19,16 +21,16 @@ public class HoleArc
         this.startRadius = startRadius;
         this.endRadius = endRadius;
 
-        // Start / End Position
-        startCritPositionX = startRadius * Math.cos(startCritAngle);
-        startCritPositionY = startRadius * Math.sin(startCritAngle);
+        // Start / End Position. Add 90 degrees to make 0 degrees positive Y axis
+        startCritPositionX = startRadius * Math.cos(Math.toRadians(startCritAngle));
+        startCritPositionY = startRadius * Math.sin(Math.toRadians(startCritAngle));
 
-        endCritPositionX = endRadius * Math.cos(endCritAngle);
-        endCritPositionY = endRadius * Math.sin(endCritAngle);
+        endCritPositionX = endRadius * Math.cos(Math.toRadians(endCritAngle));
+        endCritPositionY = endRadius * Math.sin(Math.toRadians(endCritAngle));
 
         // Midpoint Position
-        midpointPositionX = ( startCritPositionX - endCritPositionX ) / 2;
-        midpointPositionY = (startCritPositionY - endCritPositionY) / 2;
+        midpointPositionX = ( startCritPositionX + endCritPositionX ) / 2;
+        midpointPositionY = (startCritPositionY + endCritPositionY) / 2;
 
         // Midpoint Size
         double deltaX = startCritPositionX - endCritPositionX;
@@ -79,4 +81,23 @@ public class HoleArc
     public double getHoleWidth() {
         return holeWidth;
     }
+
+    @Override
+    public String toString() {
+        return "HoleArc{" +
+                "startCritAngle=" + startCritAngle +
+                ", endCritAngle=" + endCritAngle +
+                ", startRadius=" + startRadius +
+                ", endRadius=" + endRadius +
+                ", startCritPositionX=" + startCritPositionX +
+                ", startCritPositionY=" + startCritPositionY +
+                ", endCritPositionX=" + endCritPositionX +
+                ", endCritPositionY=" + endCritPositionY +
+                ", midpointPositionX=" + midpointPositionX +
+                ", midpointPositionY=" + midpointPositionY +
+                ", holeWidth=" + holeWidth +
+                '}';
+    }
+
 }
+
