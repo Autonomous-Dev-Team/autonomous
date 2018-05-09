@@ -29,6 +29,9 @@ public class TestFindPath {
         double[] moveRight = {1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,50,50,50,50,50,50,50,50,50,50,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10};
         double[] moveLeft  = {1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,50,50,50,50,50,50,50,50,50,50,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10};
 
+        double[] move45Right = {1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,50,50,50,50,50,50,50,50,50,50,50,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,50,50,50,50,50,50,50,50,50,50,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10};
+        double[] move10Left  = {1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,5,5,5,5,5,5,5,5,5,5,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,50,50,50,50,50,50,50,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10};
+
         double[] moveBackward = {10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,};
         double[] stop  = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,};
 
@@ -43,12 +46,23 @@ public class TestFindPath {
         result = findThePathObject.getPathAngle(moveLeft,40);
 
         System.out.println("Input moveLeft outcome: " + result);
-        System.out.println("Hint: we should expect a negative number between 0 and 90");
+        System.out.println("Hint: we should expect a negative number around 34");
 
         result = findThePathObject.getPathAngle(moveRight, 40);
 
-        System.out.println("Input moverIGHT outcome: " + result);
-        System.out.println("Hint: we should expect a POSITIVE number between 0 and 90");
+        System.out.println("Input moverRight outcome: " + result);
+        System.out.println("Hint: we should expect a POSITIVE number around 55");
+
+        result = findThePathObject.getPathAngle(move10Left,40);
+
+        System.out.println("Input moveLeft outcome: " + result);
+        System.out.println("Hint: we should expect a negative number around 10");
+
+        result = findThePathObject.getPathAngle(move45Right, 40);
+
+        System.out.println("Input moverRight outcome: " + result);
+        System.out.println("Hint: we should expect a POSITIVE number around 45");
+
 
         result = findThePathObject.getPathAngle(moveBackward, 40);
 

@@ -39,9 +39,8 @@ public class FindTheHole {
          double startRadius = -1;
          double endRadius;
          boolean open = false;
-         double bestHoleArc;
-
-        for (int i = distances.length-1; i >= 0; i--)
+         HoleArc bestHoleArc = null;
+        for (int i = 0; i <= distances.length-1; i++)
         {
             if(distances[i] >= tooFar && open == false)
             {
@@ -67,16 +66,13 @@ public class FindTheHole {
 
         result = ((bestHoleArc.getStartCritAngle() + bestHoleArc.getEndCritAngle())/2);
 */
+
+
         HoleArc best = getBestHoleArc(holeArcs);
         if (best == null)
             return 0.0;
-        else
-            result = ((best.getStartCritAngle() + best.getEndCritAngle())/2);
 
-        if(best.getStartCritAngle() < best.getEndCritAngle())
-            return -result;
-        else
-            return result;
+        return ((1.8*best.getStartCritAngle() + 1.8*best.getEndCritAngle())/2)-90;
     }
 
 
