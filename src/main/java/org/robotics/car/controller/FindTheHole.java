@@ -73,7 +73,10 @@ public class FindTheHole {
         else
             result = ((best.getStartCritAngle() + best.getEndCritAngle())/2);
 
-        return result;
+        if(best.getStartCritAngle() < 90)
+            return -result;
+        else
+            return result;
     }
 
 
