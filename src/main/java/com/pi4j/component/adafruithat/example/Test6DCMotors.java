@@ -170,8 +170,19 @@ public class Test6DCMotors {
 		motorMiddleRight.forward();
 		motorMiddleLeft.reverse();
 		motorBackLeft.reverse();
-
 		motorHatLower.sleep(1200);
+
+		System.out.println("Make a left turn ...");
+		motorFrontLeft.reverse();
+		motorBackRight.forward();
+		motorFrontRight.forward();
+		motorMiddleRight.forward();
+		motorMiddleLeft.reverse();
+		motorBackLeft.reverse();
+		motorHatLower.sleep(1200);
+
+		if (true)
+			return;
 
 		System.out.println("Make a right turn ...");
 		motorFrontRight.reverse();
