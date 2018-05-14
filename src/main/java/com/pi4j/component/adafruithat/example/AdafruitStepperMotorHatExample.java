@@ -1,4 +1,4 @@
-package com.pi4j.component.adafruithat.example;
+package  com.pi4j.component.adafruithat.example;
 /*
  * #%L
  * **********************************************************************
@@ -62,7 +62,14 @@ public class AdafruitStepperMotorHatExample {
 		    }
 		 });
 			
-		
+		////////////////////////////////////////////////////////
+		// Wire Configuration please follow as described below
+		//
+		//
+		// 		M1                M2
+		// blue, yellow  empty  red green
+		//
+		/////////////////////////////////////////////////////////
 		
 		//Create an instance for this stepper motor. A motorHAT can command
 		//two stepper motors ("SM1" and "SM2")
@@ -78,7 +85,48 @@ public class AdafruitStepperMotorHatExample {
 		//Time between each step in milliseconds. 
 		//In this example, "true" indicates to terminate if 
 		//stepper motor can not achieve 100ms per step.
-		stepper.setStepInterval(100, true);
+		stepper.setStepInterval(5, false);
+
+		for (int i=0; i <10; i++)
+		{
+
+			stepper.step(-100);
+			System.out.format("100 steps");
+
+			// Remain for 200 ms before next measurement
+			try {
+				Thread.sleep(200);
+			} catch(Exception e) {
+
+				System.out.println("Interrupt");
+			}
+		
+			//reverse
+			stepper.step(100);
+			System.out.format("100 steps");
+
+			// Remain for 200 ms before next measurement
+			try {
+				Thread.sleep(200);
+			} catch(Exception e) {
+
+				System.out.println("Interrupt");
+			}
+
+		//Move 0.5 revolutions at the fastest possible speed in forward direction
+//		stepper.setStepInterval(5,false);
+//		stepper.rotate(-0.5);
+//		System.out.format("180 degrees currentStep: %d\n",stepper.getCurrentStep());
+
+
+                //Move 2.5 revolutions at the fastest possible speed in forward direction
+//		stepper.setStepInterval(5,false);
+//		stepper.rotate(0.5);
+//		System.out.format("Minis 180 degrees. currentStep: %d\n",stepper.getCurrentStep());
+		}
+
+		if (true)
+			return; 
 
 		//forward
 		stepper.step(100);
