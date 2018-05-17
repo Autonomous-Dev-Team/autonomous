@@ -29,6 +29,8 @@ package com.pi4j.component.adafruithat.example;
  */
 import com.pi4j.component.adafruithat.AdafruitDcMotor;
 import com.pi4j.component.adafruithat.AdafruitMotorHat;
+import com.pi4j.component.adafruithat.AdafruitStepperMotor;
+import com.pi4j.component.adafruithat.StepperMode;
 
 /**
  * Example program commanding a DC Motor wired to a AdafruitMotorHat.
@@ -81,10 +83,6 @@ public class Test6DCMotors {
 		/**
 		 * Configure the motor controller. Make sure the wire match the configurations
 		 */
-		//	AdafruitDcMotor motorBackRight  = motorHat.getDcMotor("M1");
-		//	AdafruitDcMotor motorBackLeft   = motorHat.getDcMotor("M2");
-		//	AdafruitDcMotor motorFrontLeft  = motorHat.getDcMotor("M3");
-		//			AdafruitDcMotor motorFrontRight = motorHat.getDcMotor("M4");
 
         /* Initialize DC motors */
         /* Lower board */
@@ -96,6 +94,77 @@ public class Test6DCMotors {
 		/* Upper Board */
 		AdafruitDcMotor motorMiddleLeft = motorHatUp.getDcMotor("M1");
 		AdafruitDcMotor motorMiddleRight = motorHatUp.getDcMotor("M2");
+
+
+		/**
+		 * Initialize stepper motor
+		 */
+
+		////////////////////////////////////////////////////////
+		// Wire Configuration please follow as described below
+		//
+		//
+		// 		M3                M4
+		// blue, yellow  empty  red green
+		//
+		/////////////////////////////////////////////////////////
+
+		//Create an instance for this stepper motor. A motorHAT can command
+		//two stepper motors ("SM1" and "SM2")
+		AdafruitStepperMotor stepper = motorHatUp.getStepperMotor("SM2");
+
+		//Set Stepper Mode to SINGLE_PHASE
+		stepper.setMode(StepperMode.SINGLE_PHASE);
+
+		//Set the number of motor steps per 360 degree
+		//revolution for this stepper mode.
+		stepper.setStepsPerRevolution(200);
+
+		//Time between each step in milliseconds.
+		//In this example, "true" indicates to terminate if
+		//stepper motor can not achieve 100ms per step.
+		stepper.setStepInterval(5, false);
+
+		for (int i=0; i <5; i++)
+		{
+
+			stepper.step(-100);
+			System.out.format("100 steps");
+
+			// Remain for 200 ms before next measurement
+			try {
+				Thread.sleep(200);
+			} catch(Exception e) {
+
+				System.out.println("Interrupt");
+			}
+
+			//reverse
+			stepper.step(100);
+			System.out.format("100 steps");
+
+			// Remain for 200 ms before next measurement
+			try {
+				Thread.sleep(200);
+			} catch(Exception e) {
+
+				System.out.println("Interrupt");
+			}
+
+			//Move 0.5 revolutions at the fastest possible speed in forward direction
+//		stepper.setStepInterval(5,false);
+//		stepper.rotate(-0.5);
+//		System.out.format("180 degrees currentStep: %d\n",stepper.getCurrentStep());
+
+
+			//Move 2.5 revolutions at the fastest possible speed in forward direction
+//		stepper.setStepInterval(5,false);
+//		stepper.rotate(0.5);
+//		System.out.format("Minis 180 degrees. currentStep: %d\n",stepper.getCurrentStep());
+		}
+
+
+
 
 
 		//A speed value of 100 sets the DC motor to maximum throttle.
@@ -181,57 +250,56 @@ public class Test6DCMotors {
 		motorBackLeft.reverse();
 		motorHatLower.sleep(1200);
 
-		if (true)
-			return;
+		if (false) {
 
-		System.out.println("Make a right turn ...");
-		motorFrontRight.reverse();
-		motorBackLeft.forward();
-		motorFrontLeft.forward();
-		motorBackRight.reverse();
-		motorMiddleRight.reverse();
-		motorMiddleLeft.forward();
-		motorHatLower.sleep(1200);
+			System.out.println("Make a right turn ...");
+			motorFrontRight.reverse();
+			motorBackLeft.forward();
+			motorFrontLeft.forward();
+			motorBackRight.reverse();
+			motorMiddleRight.reverse();
+			motorMiddleLeft.forward();
+			motorHatLower.sleep(1200);
 
-		System.out.println("Make a left turn ...");
-		motorFrontLeft.reverse();
-		motorBackRight.forward();
-		motorFrontRight.forward();
-		motorMiddleRight.forward();
-		motorMiddleLeft.reverse();
-		motorBackLeft.reverse();
+			System.out.println("Make a left turn ...");
+			motorFrontLeft.reverse();
+			motorBackRight.forward();
+			motorFrontRight.forward();
+			motorMiddleRight.forward();
+			motorMiddleLeft.reverse();
+			motorBackLeft.reverse();
 
-		motorHatLower.sleep(1200);
+			motorHatLower.sleep(1200);
 
-		System.out.println("Make a right turn ...");
-		motorFrontRight.reverse();
-		motorBackLeft.forward();
-		motorFrontLeft.forward();
-		motorBackRight.reverse();
-		motorMiddleRight.reverse();
-		motorMiddleLeft.forward();
-		motorHatLower.sleep(1200);
+			System.out.println("Make a right turn ...");
+			motorFrontRight.reverse();
+			motorBackLeft.forward();
+			motorFrontLeft.forward();
+			motorBackRight.reverse();
+			motorMiddleRight.reverse();
+			motorMiddleLeft.forward();
+			motorHatLower.sleep(1200);
 
-		System.out.println("Make a left turn ...");
-		motorFrontLeft.reverse();
-		motorBackRight.forward();
-		motorFrontRight.forward();
-		motorMiddleRight.forward();
-		motorMiddleLeft.reverse();
-		motorBackLeft.reverse();
+			System.out.println("Make a left turn ...");
+			motorFrontLeft.reverse();
+			motorBackRight.forward();
+			motorFrontRight.forward();
+			motorMiddleRight.forward();
+			motorMiddleLeft.reverse();
+			motorBackLeft.reverse();
 
-		motorHatLower.sleep(1200);
+			motorHatLower.sleep(1200);
 
-		System.out.println("Make a right turn ...");
-		motorFrontRight.reverse();
-		motorBackLeft.forward();
-		motorFrontLeft.forward();
-		motorBackRight.reverse();
-		motorMiddleRight.reverse();
-		motorMiddleLeft.forward();
-		motorHatLower.sleep(1200);
+			System.out.println("Make a right turn ...");
+			motorFrontRight.reverse();
+			motorBackLeft.forward();
+			motorFrontLeft.forward();
+			motorBackRight.reverse();
+			motorMiddleRight.reverse();
+			motorMiddleLeft.forward();
+			motorHatLower.sleep(1200);
 
-
+		}
 
 		//Stop motors in brake mode.
 		motorFrontLeft.setBrakeMode(true);
