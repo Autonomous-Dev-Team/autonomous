@@ -58,7 +58,7 @@ public class Test6DCMotors {
 		/* Lower board with the 4 DC Motors Front, middle motors */
 		final int motorHATAddressDCMotors = 0X60;
 
-		/* M1, M2 is stepper and M3, M4 are the DC motors */
+		/* M1, M2 are the DC motors and M3, M4 is the stepper (SM2) */
 		final int motorHATAddressSteper = 0X61;
 
 		final AdafruitMotorHat motorHatLower = new AdafruitMotorHat(motorHATAddressDCMotors);

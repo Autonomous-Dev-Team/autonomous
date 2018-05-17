@@ -19,46 +19,43 @@ package org.robotics.car.examples;
  */
 
 import org.robotics.car.controller.MotorController;
+import org.robotics.car.controller.MotorController6;
 
 /**
  * Created by maurice on 3/18/17.
  */
 public class TestMotorController {
 
-    static MotorController motorController = null;
+    static MotorController6 motorController = null;
 
 
     public static void main(String[] args) throws InterruptedException {
 
-        //  Get first argument
-        String terrain = "carpet";
-        if (args.length > 1 )
-            terrain = args[1];
-
-        System.out.println("Terrain: " + terrain);
-
-        motorController = new MotorController(terrain, "M1", "M2", "M3", "M4");
+        motorController = new MotorController6();
 
         System.out.println("Move forward for a second ..");
         motorController.forward();
 
-        Thread.sleep(1000);
-
-        System.out.println("Turn left for 180 degrees ..");
-        motorController.left(180);
-
-        System.out.println("Move forward for a second ..");
-        motorController.forward();
+        motorController.stepLeft(100);
 
         Thread.sleep(1000);
 
-        System.out.println("Turn right for 180 degrees ..");
-        motorController.right(180);
+        System.out.println("Turn left for 10 degrees ..");
+        motorController.left(10);
+
+        System.out.println("Move backward for a second ..");
+        motorController.backward();
+
+        motorController.stepRight(100);
+
+        Thread.sleep(1000);
+
+        System.out.println("Turn right for 10 degrees ..");
+        motorController.right(10);
 
         motorController.stop();
 
         motorController.uninitialize();
-
 
     }
 
