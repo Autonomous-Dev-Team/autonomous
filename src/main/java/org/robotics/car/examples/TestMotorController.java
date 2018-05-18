@@ -33,29 +33,32 @@ public class TestMotorController {
 
         motorController = new MotorController6();
 
-        System.out.println("Move forward for a second ..");
-        motorController.forward();
+        for (int i=1; i < 50; i++) {
 
-        motorController.stepLeft(100);
+            System.out.println("Move forward for a second ..");
+            motorController.forward();
 
-        Thread.sleep(1000);
+            motorController.stepLeft(100);
 
-        System.out.println("Turn left for 10 degrees ..");
-        motorController.left(10);
+            Thread.sleep(300);
 
-        System.out.println("Move backward for a second ..");
-        motorController.backward();
+            System.out.println("Turn left for 10 degrees ..");
+            motorController.left(10);
 
-        motorController.stepRight(100);
+            System.out.println("Move backward for a second ..");
+            motorController.backward();
 
-        Thread.sleep(1000);
+            motorController.stepRight(100);
 
-        System.out.println("Turn right for 10 degrees ..");
-        motorController.right(10);
+            Thread.sleep(300);
 
-        motorController.stop();
+            System.out.println("Turn right for 10 degrees ..");
+            motorController.right(10);
 
-        motorController.uninitialize();
+            motorController.stop();
+
+            motorController.uninitialize();
+        }
 
     }
 
