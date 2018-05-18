@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MotorController6 {
    // Constant
 
-    static private float DEFAULT_POWER_LEVEL = 50.0f;
+    static private float DEFAULT_POWER_LEVEL = 40.0f;
     static private float DEFAULT_SPEED = 20.0f;
 
     static private float CARPET_SPEED = 1.5f;
@@ -102,14 +102,14 @@ public class MotorController6 {
 
 
         // Set default power range
-        this.motorFrontLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
-        this.motorFrontRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorFrontLeft.setPowerRange(DEFAULT_POWER_LEVEL * 3);
+        this.motorFrontRight.setPowerRange(DEFAULT_POWER_LEVEL * 3);
 
-        this.motorBackLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
-        this.motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorBackLeft.setPowerRange(DEFAULT_POWER_LEVEL * 3);
+        this.motorBackRight.setPowerRange(DEFAULT_POWER_LEVEL * 3);
 
-        this.motorMiddleLeft.setPowerRange(DEFAULT_POWER_LEVEL * 2);
-        this.motorMiddleRight.setPowerRange(DEFAULT_POWER_LEVEL * 2);
+        this.motorMiddleLeft.setPowerRange(DEFAULT_POWER_LEVEL * 3);
+        this.motorMiddleRight.setPowerRange(DEFAULT_POWER_LEVEL * 3);
 
 
         //Set power but do not set or change the motor state (stop, forward, reverse)
