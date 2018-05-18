@@ -18,13 +18,12 @@ package org.robotics.car.examples;
  *
  */
 
-import org.robotics.car.controller.MotorController;
 import org.robotics.car.controller.MotorController6;
 
 /**
  * Created by maurice on 3/18/17.
  */
-public class TestMotorController {
+public class TestMotorControllerForever {
 
     static MotorController6 motorController = null;
 
@@ -33,7 +32,9 @@ public class TestMotorController {
 
         motorController = new MotorController6();
 
-        for (int i=1; i < 120; i++) {
+        boolean bLoop = true;
+
+        while (bLoop) {
 
             System.out.println("Move forward for a 250ms ..");
             motorController.forward();
@@ -62,5 +63,4 @@ public class TestMotorController {
         motorController.uninitialize();
 
     }
-
 }
