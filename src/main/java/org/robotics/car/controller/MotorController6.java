@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MotorController6 {
    // Constant
 
-    static private float DEFAULT_POWER_LEVEL = 40.0f;
+    static private float DEFAULT_POWER_LEVEL = 50.0f;
     static private float DEFAULT_SPEED = 20.0f;
 
     static private float CARPET_SPEED = 1.5f;
@@ -207,6 +207,13 @@ public class MotorController6 {
 
     public boolean forward() {
 
+        this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL/2);
+        this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL/2);
+        this.motorBackLeft.setPower(DEFAULT_POWER_LEVEL/2);
+        this.motorBackRight.setPower(DEFAULT_POWER_LEVEL/2);
+
+        this.motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL/2);
+        this.motorMiddleRight.setPower(DEFAULT_POWER_LEVEL/2);
 
 
         // All 4 motors forward
@@ -223,7 +230,15 @@ public class MotorController6 {
 
     public boolean right(int degrees) {
 
-        int turn_time = degrees*100;
+        int turn_time = degrees*200;
+
+        this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL*2);
+        this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL*2);
+        this.motorBackLeft.setPower(DEFAULT_POWER_LEVEL*2);
+        this.motorBackRight.setPower(DEFAULT_POWER_LEVEL*2);
+
+        this.motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL*2);
+        this.motorMiddleRight.setPower(DEFAULT_POWER_LEVEL*2);
 
         // Stop all motors
         motorFrontLeft.setBrakeMode(true);
@@ -259,7 +274,15 @@ public class MotorController6 {
 
     public boolean left(int degrees) {
 
-        int turn_time = degrees*100;
+        int turn_time = degrees*200;
+
+        this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL*2);
+        this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL*2);
+        this.motorBackLeft.setPower(DEFAULT_POWER_LEVEL*2);
+        this.motorBackRight.setPower(DEFAULT_POWER_LEVEL*2);
+
+        this.motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL*2);
+        this.motorMiddleRight.setPower(DEFAULT_POWER_LEVEL*2);
 
         motorFrontLeft.setBrakeMode(true);
         motorFrontLeft.stop();
@@ -293,6 +316,13 @@ public class MotorController6 {
 
     public boolean backward() {
 
+        this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL/2);
+        this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL/2);
+        this.motorBackLeft.setPower(DEFAULT_POWER_LEVEL/2);
+        this.motorBackRight.setPower(DEFAULT_POWER_LEVEL/2);
+
+        this.motorMiddleLeft.setPower(DEFAULT_POWER_LEVEL/2);
+        this.motorMiddleRight.setPower(DEFAULT_POWER_LEVEL/2);
 
         motorFrontLeft.setBrakeMode(true);
         motorFrontLeft.stop();

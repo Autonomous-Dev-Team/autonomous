@@ -42,7 +42,7 @@ public class TestMotorControllerForever {
             System.out.println("Scan the distance ..");
             motorController.stepLeft(100);
 
-            Thread.sleep(250);
+            Thread.sleep(100);
 
             System.out.println("Turn left for 10 degrees ..");
             motorController.left(10);
@@ -53,7 +53,7 @@ public class TestMotorControllerForever {
             System.out.println("Scan the distance ..");
             motorController.stepRight(100);
 
-            Thread.sleep(250);
+            Thread.sleep(100);
 
             System.out.println("Turn right for 10 degrees ..");
             motorController.right(10);
