@@ -39,7 +39,7 @@ public class TestMotorController {
             motorController.forward();
 
             System.out.println("Scan the distance ..");
-            motorController.stepLeft(200);
+            motorController.stepLeft(100);
 
             Thread.sleep(50);
 
@@ -50,7 +50,7 @@ public class TestMotorController {
             motorController.backward();
 
             System.out.println("Scan the distance ..");
-            motorController.stepRight(200);
+            motorController.stepRight(100);
 
             Thread.sleep(50);
 

@@ -207,6 +207,8 @@ public class MotorController6 {
 
     public boolean forward() {
 
+        this.stop();
+
         this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL/2);
         this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL/2);
         this.motorBackLeft.setPower(DEFAULT_POWER_LEVEL/2);
@@ -230,7 +232,9 @@ public class MotorController6 {
 
     public boolean right(int degrees) {
 
-        int turn_time = degrees*200;
+        int turn_time = degrees*150;
+
+        this.stop();
 
         this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL*2);
         this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL*2);
@@ -274,7 +278,9 @@ public class MotorController6 {
 
     public boolean left(int degrees) {
 
-        int turn_time = degrees*200;
+        int turn_time = degrees*150;
+
+        this.stop();
 
         this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL*2);
         this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL*2);
@@ -315,6 +321,8 @@ public class MotorController6 {
     }
 
     public boolean backward() {
+
+        this.stop();
 
         this.motorFrontLeft.setPower(DEFAULT_POWER_LEVEL/2);
         this.motorFrontRight.setPower(DEFAULT_POWER_LEVEL/2);
