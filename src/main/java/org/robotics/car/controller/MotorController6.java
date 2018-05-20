@@ -271,6 +271,7 @@ public class MotorController6 {
         motorMiddleRight.reverse();
         motorMiddleLeft.forward();
         motorHatLower.sleep(turn_time);
+        motorHatUpper.sleep(turn_time);
 
 
         return true;
@@ -316,6 +317,7 @@ public class MotorController6 {
         motorBackLeft.reverse();
 
         motorHatLower.sleep(turn_time);
+        motorHatUpper.sleep(turn_time);
 
         return true;
     }
